@@ -1,0 +1,29 @@
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Project data artifacts
+data/chroma/
+data/raw/
+data/processed/
+*.faiss
+*.sqlite3
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Later phases
+mlruns/

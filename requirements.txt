@@ -1,0 +1,28 @@
+# ---- OPS-AGENT :: Week 5-7 (Agent & Pipeline Design) ----
+# Python 3.10+
+
+# Orchestration
+langgraph>=0.2.60
+langchain-core>=0.3.0
+
+# Vector store + embeddings
+chromadb>=0.5.5
+sentence-transformers>=3.0.0
+
+# LLM providers
+google-generativeai>=0.8.0     # Gemini (primary)
+requests>=2.32.0               # Ollama local fallback (HTTP)
+
+# Config / utils
+python-dotenv>=1.0.1
+pydantic>=2.7.0
+
+# Scientific stack (used from Week 8 onward; pinned here for a single env)
+numpy>=1.26.0
+pandas>=2.2.0
+scikit-learn>=1.5.0
+matplotlib>=3.8.0
+
+# Testing
+pytest>=8.2.0
+pytest-cov>=5.0.0

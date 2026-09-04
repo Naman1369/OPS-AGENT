@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; font: 14px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #fafafa; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<title>OPS-AGENT Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+
+<style>
+  :root {
+    --bg: #FAFBFB;
+    --surface: #FFFFFF;
+    --surface-alt: #F1F4F4;
+    --ink: #14201F;
+    --ink-soft: #4E5C5C;
+    --ink-faint: #778584;
+    --rule: #DDE4E3;
+    --rule-strong: #C3CFCE;
+    --accent: #0F4C5C;
+    --accent-soft: #E3F0F2;
+    --amber: #9A5B00;
+    --amber-soft: #FBEEDC;
+    --green: #24634A;
+    --green-soft: #E0F0E7;
+    --red: #97302E;
+    --red-soft: #F8E6E4;
+
+    --display: "Newsreader", Georgia, "Times New Roman", serif;
+    --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --col: 68ch;
+    --wide: 980px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1414;
+      --surface: #151D1D;
+      --surface-alt: #1B2525;
+      --ink: #E4EBEA;
+      --ink-soft: #9BAAA9;
+      --ink-faint: #7A8988;
+      --rule: #2A3736;
+      --rule-strong: #3B4A49;
+      --accent: #6FC0CE;
+      --accent-soft: #14292D;
+      --amber: #E5A94A;
+      --amber-soft: #2C2416;
+      --green: #6BC095;
+      --green-soft: #16291F;
+      --red: #E08C89;
+      --red-soft: #2E1A19;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0E1414;
+    --surface: #151D1D;
+    --surface-alt: #1B2525;
+    --ink: #E4EBEA;
+    --ink-soft: #9BAAA9;
+    --ink-faint: #7A8988;
+    --rule: #2A3736;
+    --rule-strong: #3B4A49;
+    --accent: #6FC0CE;
+    --accent-soft: #14292D;
+    --amber: #E5A94A;
+    --amber-soft: #2C2416;
+    --green: #6BC095;
+    --green-soft: #16291F;
+    --red: #E08C89;
+    --red-soft: #2E1A19;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 0 96px;
+  }
+
+  .col { max-width: var(--col); margin-inline: auto; padding-inline: 24px; }
+  .wide { max-width: var(--wide); margin-inline: auto; padding-inline: 24px; }
+
+  /* ---------- masthead ---------- */
+
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding: 64px 0 40px;
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.3rem, 6vw, 3.3rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0 0 20px;
+  }
+
+  .standfirst {
+    font-family: var(--display);
+    font-size: clamp(1.08rem, 2.4vw, 1.28rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    text-wrap: pretty;
+  }
+
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .byline span { white-space: nowrap; }
+
+  /* ---------- sections ---------- */
+
+  section { margin-bottom: 56px; }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.6vw, 1.95rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 6px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    border-top: 2px solid var(--ink);
+  }
+  .section-head .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    padding-top: 6px;
+    flex: none;
+  }
+  .section-head h2 { margin: 0; }
+
+  h3 {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: 0.005em;
+    margin: 32px 0 8px;
+  }
+
+  p { margin: 0 0 18px; text-wrap: pretty; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  strong { font-weight: 600; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+
+  /* ---------- pull quote ---------- */
+
+  .pull {
+    font-family: var(--display);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    line-height: 1.36;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 22px;
+    margin: 32px 0;
+    text-wrap: pretty;
+  }
+
+  /* ---------- figure ---------- */
+
+  figure { margin: 32px 0 8px; }
+
+  .figure-frame {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 26px 20px 18px;
+    overflow-x: auto;
+  }
+
+  figure svg { display: block; width: 100%; min-width: 640px; height: auto; }
+
+  figcaption {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    text-wrap: pretty;
+  }
+
+  /* ---------- ticket journey ---------- */
+
+  .journey { list-style: none; margin: 28px 0 0; padding: 0; }
+
+  .stage {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 0 16px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+  .stage:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 30px;
+    bottom: 2px;
+    width: 1px;
+    background: var(--rule-strong);
+  }
+
+  .stage .marker {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    width: 33px;
+    height: 33px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--rule-strong);
+    background: var(--surface);
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage h3 { margin: 4px 0 6px; }
+  .stage p { margin-bottom: 12px; }
+  .stage > div > *:last-child { margin-bottom: 0; }
+
+  .readout {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.75;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    padding: 12px 14px;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--ink-soft);
+  }
+  .readout b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- tables ---------- */
+
+  .table-scroll { overflow-x: auto; margin: 24px 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 540px;
+  }
+  caption {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-bottom: 10px;
+  }
+  th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; }
+  thead th {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 8px;
+  }
+  tbody tr { border-bottom: 1px solid var(--rule); }
+  tbody tr:last-child { border-bottom: none; }
+  td.code-cell { font-family: var(--mono); font-size: 12.5px; white-space: nowrap; color: var(--accent); }
+
+  /* ---------- status pills ---------- */
+
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .pill.done { background: var(--green-soft); color: var(--green); }
+  .pill.now { background: var(--accent-soft); color: var(--accent); }
+  .pill.next { background: var(--surface-alt); color: var(--ink-faint); }
+  .pill.hold { background: var(--amber-soft); color: var(--amber); }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    background: var(--amber-soft);
+    border: 1px solid color-mix(in srgb, var(--amber) 28%, transparent);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 28px 0;
+  }
+  .callout h3 { margin-top: 0; color: var(--amber); }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---------- glossary ---------- */
+
+  dl.glossary { margin: 24px 0 0; }
+  dl.glossary > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  dl.glossary > div:last-child { border-bottom: none; }
+  dt {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  dd { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
+
+  @media (min-width: 620px) {
+    dl.glossary > div { grid-template-columns: 190px 1fr; gap: 0 24px; align-items: baseline; }
+    dt { padding-top: 1px; }
+  }
+
+  /* ---------- run block ---------- */
+
+  pre.shell {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.75;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  pre.shell .c { color: var(--ink-faint); }
+
+  /* ---------- file tree ---------- */
+
+  .tree {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.85;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 22px 0;
+  }
+  .tree .n { color: var(--ink-faint); }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    margin-top: 64px;
+    padding-top: 24px;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+</head>
+<body>
+<header class="masthead">
+  <div class="col">
+    <p class="eyebrow">Final year project · Plain-English walkthrough</p>
+    <h1>OPS-AGENT</h1>
+    <p class="standfirst">An AI system that reads IT support tickets, looks up the company's own troubleshooting documents, drafts a fix &mdash; and then, crucially, decides for itself whether that fix is safe to send or needs a human first.</p>
+    <div class="byline">
+      <span>D. Y. Patil College of Engineering &amp; Technology</span>
+      <span>CSE (AI &amp; ML), 2026&ndash;27</span>
+      <span>Written for readers with no technical background</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="col">
+    <div class="section-head"><span class="num">01</span><h2>The problem, in one paragraph</h2></div>
+    <p>Every company has an IT helpdesk. When your laptop dies, your password stops working, or the office Wi-Fi drops, you file a &ldquo;ticket&rdquo; and a support engineer eventually works through it. Large companies get thousands of these a week, and most are things the engineers have solved a hundred times before. It is slow, repetitive, and expensive.</p>
+    <p>The obvious modern fix is to point an AI chatbot at the pile. Plenty of companies have. The problem is what happens when the AI is <em>wrong but sounds confident</em> &mdash; it tells someone to delete the wrong folder, or quietly handles what was actually a security breach. Chatbots are good at sounding certain. They are bad at knowing when they should not be.</p>
+    <p class="pull">OPS-AGENT's argument is that the interesting problem isn't answering the ticket. It's knowing when <em>not</em> to answer it.</p>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">02</span><h2>The idea: four specialists, not one generalist</h2></div>
+    <p>Instead of one AI trying to do everything, OPS-AGENT splits the job across four smaller programs called <strong>agents</strong>. Each does one thing and hands its work to the next, like a relay team. Think of an assembly line in a repair shop rather than a single mechanic.</p>
+    <p>The fourth one is the unusual part, and it's the whole point of the project.</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>The four agents</caption>
+        <thead>
+          <tr><th style="width: 120px;">Agent</th><th>What it does</th><th style="width: 150px;">Everyday analogy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="code-cell">Intake</td>
+            <td>Reads the raw complaint and sorts it: what kind of problem is this, how urgent, what are the key words to search on?</td>
+            <td>The receptionist who takes your details</td>
+          </tr>
+          <tr>
+            <td class="code-cell">Retrieval</td>
+            <td>Searches the company's own troubleshooting manuals for pages that match the problem.</td>
+            <td>The librarian who fetches the right manual</td>
+          </tr>
+          <tr>
+            <td class="code-cell">Resolution</td>
+            <td>Reads those pages and writes step-by-step instructions &mdash; using <em>only</em> what the pages say.</td>
+            <td>The engineer who writes the fix</td>
+          </tr>
+          <tr>
+            <td class="code-cell">Governance</td>
+            <td>Checks the answer against seven safety rules and decides: send it, or hand this to a human?</td>
+            <td>The supervisor who signs off</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wide">
+    <div class="col" style="padding-inline: 0;">
+      <div class="section-head"><span class="num">03</span><h2>How a ticket moves through the system</h2></div>
+      <p>A ticket enters on the left and leaves on the right &mdash; either as an answer sent straight to the user, or as an escalation to a human engineer. The two dark arrows are the safety rules that are built into the <em>shape</em> of the system rather than merely written down as instructions.</p>
+    </div>
+
+    <figure>
+      <div class="figure-frame">
+        <svg viewBox="0 0 900 390" role="img" aria-label="Flow diagram: a ticket passes through Intake, Retrieval, Resolution and Governance; if retrieval finds no evidence the Resolution step is skipped entirely; Governance is the only route to either Deliver or Escalate.">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+            </marker>
+            <marker id="ar-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amber)"></path>
+            </marker>
+            <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--green)"></path>
+            </marker>
+          </defs>
+
+          <g font-family="IBM Plex Sans, sans-serif" color="currentColor">
+
+            <!-- incoming ticket -->
+            <text x="8" y="150" font-size="12" font-weight="600" fill="currentColor">Ticket</text>
+            <text x="8" y="165" font-size="10.5" fill="var(--ink-faint)">arrives</text>
+            <line x1="8" y1="175" x2="52" y2="175" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"></line>
+
+            <!-- main row boxes -->
+            <g stroke="var(--rule-strong)" stroke-width="1.2" fill="var(--surface)">
+              <rect x="58" y="146" width="126" height="58" rx="4"></rect>
+              <rect x="242" y="146" width="126" height="58" rx="4"></rect>
+              <rect x="426" y="146" width="134" height="58" rx="4"></rect>
+            </g>
+            <rect x="618" y="140" width="150" height="70" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"></rect>
+
+            <text x="121" y="171" font-size="13" font-weight="600" text-anchor="middle" fill="currentColor">INTAKE</text>
+            <text x="121" y="188" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">sorts the ticket</text>
+
+            <text x="305" y="171" font-size="13" font-weight="600" text-anchor="middle" fill="currentColor">RETRIEVAL</text>
+            <text x="305" y="188" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">finds the manuals</text>
+
+            <text x="493" y="171" font-size="13" font-weight="600" text-anchor="middle" fill="currentColor">RESOLUTION</text>
+            <text x="493" y="188" font-size="10.5" text-anchor="middle" fill="var(--ink-faint)">writes the fix</text>
+
+            <text x="693" y="168" font-size="13" font-weight="600" text-anchor="middle" fill="var(--accent)">GOVERNANCE</text>
+            <text x="693" y="185" font-size="10.5" text-anchor="middle" fill="var(--accent)">7 safety checks</text>
+            <text x="693" y="200" font-size="10" text-anchor="middle" fill="var(--accent)">no AI &mdash; fixed rules</text>
+
+            <!-- main arrows -->
+            <line x1="184" y1="175" x2="236" y2="175" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"></line>
+            <text x="210" y="167" font-size="10" text-anchor="middle" fill="var(--ink-faint)">search</text>
+            <text x="210" y="178" font-size="10" text-anchor="middle" fill="var(--ink-faint)">terms</text>
+
+            <line x1="368" y1="175" x2="420" y2="175" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"></line>
+            <text x="394" y="167" font-size="10" text-anchor="middle" fill="var(--ink-faint)">manual</text>
+            <text x="394" y="178" font-size="10" text-anchor="middle" fill="var(--ink-faint)">pages</text>
+
+            <line x1="560" y1="175" x2="612" y2="175" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)"></line>
+            <text x="586" y="167" font-size="10" text-anchor="middle" fill="var(--ink-faint)">draft +</text>
+            <text x="586" y="178" font-size="10" text-anchor="middle" fill="var(--ink-faint)">confidence</text>
+
+            <!-- bypass: no evidence -->
+            <path d="M 305 204 L 305 316 L 665 316 L 665 210" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#ar)"></path>
+            <rect x="352" y="303" width="266" height="26" rx="3" fill="var(--bg)"></rect>
+            <text x="485" y="321" font-size="11" font-weight="600" text-anchor="middle" fill="currentColor">Rule 1 &mdash; no manual found? skip writing a fix entirely</text>
+
+            <!-- outcomes -->
+            <rect x="806" y="76" width="88" height="52" rx="4" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.4"></rect>
+            <text x="850" y="99" font-size="12" font-weight="600" text-anchor="middle" fill="var(--green)">SEND</text>
+            <text x="850" y="114" font-size="10" text-anchor="middle" fill="var(--green)">to the user</text>
+
+            <rect x="806" y="222" width="88" height="52" rx="4" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.4"></rect>
+            <text x="850" y="245" font-size="12" font-weight="600" text-anchor="middle" fill="var(--amber)">ESCALATE</text>
+            <text x="850" y="260" font-size="10" text-anchor="middle" fill="var(--amber)">to a human</text>
+
+            <path d="M 768 160 L 790 128 L 800 110" fill="none" stroke="var(--green)" stroke-width="1.6" marker-end="url(#ar-green)"></path>
+            <path d="M 768 190 L 790 222 L 800 240" fill="none" stroke="var(--amber)" stroke-width="1.6" marker-end="url(#ar-amber)"></path>
+
+            <text x="782" y="146" font-size="10" text-anchor="end" fill="var(--green)">all 7 pass</text>
+            <text x="782" y="212" font-size="10" text-anchor="end" fill="var(--amber)">any fail</text>
+
+            <!-- rule 2 annotation -->
+            <line x1="618" y1="118" x2="618" y2="136" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"></line>
+            <text x="612" y="112" font-size="11" font-weight="600" text-anchor="end" fill="currentColor">Rule 2 &mdash; every path goes through Governance</text>
+            <text x="612" y="126" font-size="10" text-anchor="end" fill="var(--ink-faint)">nothing reaches the user unchecked</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption><strong>Why the two dark arrows matter.</strong> Both rules are enforced by how the pipeline is wired, not by asking the AI nicely in its instructions. Rule 1 means the fix-writing step is physically unreachable when no supporting document was found &mdash; so it cannot invent an answer. Rule 2 means there is no route from any agent to the user that skips the safety checks.</figcaption>
+    </figure>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">04</span><h2>Following one real ticket</h2></div>
+    <p>Here is an actual run of the finished system. The ticket is a common one: someone's work VPN &mdash; the secure connection that lets you use office systems from home &mdash; won't connect, and shows an error numbered 809.</p>
+
+    <ol class="journey">
+      <li class="stage">
+        <span class="marker">1</span>
+        <div>
+          <h3>The ticket arrives</h3>
+          <p>Just a sentence of ordinary English, exactly as a frustrated employee would type it.</p>
+          <div class="readout"><b>"User cannot connect to the VPN, error code 809"</b></div>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="marker">2</span>
+        <div>
+          <h3>Intake sorts it</h3>
+          <p>The first agent pulls structure out of that sentence. It spots that this is a network problem, that it isn't an emergency, and &mdash; importantly &mdash; it catches the error number, which is the single most useful thing to search on.</p>
+          <div class="readout">category   <b>network</b>
+priority   <b>P3</b>          <span style="opacity:.75">(P1 = whole office down, P4 = no rush)</span>
+error code <b>809</b>
+keywords   <b>vpn, cannot connect, 809, error, code</b></div>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="marker">3</span>
+        <div>
+          <h3>Retrieval finds the manual</h3>
+          <p>The second agent searches a library of 30 troubleshooting articles. It doesn't match words literally &mdash; it matches <em>meaning</em>, so a ticket saying &ldquo;can't get on the VPN&rdquo; still finds the article titled &ldquo;VPN Connection Fails&rdquo;. Each result gets a relevance score out of 1.</p>
+          <div class="readout">1. [0.36] <b>KB-0001</b>  VPN Connection Fails with Error 809
+2. [0.22] <b>KB-0002</b>  VPN Client Repeatedly Prompts for Credentials
+3. [0.16] <b>KB-0004</b>  Internal Sites Unreachable (DNS Failure)</div>
+          <p>Anything scoring too low is thrown away rather than passed on. A weak match is worse than no match, because it gives the next agent something plausible-looking to build a wrong answer on.</p>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="marker">4</span>
+        <div>
+          <h3>Resolution writes the fix</h3>
+          <p>The third agent turns the retrieved article into numbered instructions. Every single step ends with a tag in brackets naming the document it came from &mdash; so an engineer can always check the source. It also reports how confident it is.</p>
+          <div class="readout">1. Confirm the user is not on a captive-portal network
+   that blocks UDP 500 and UDP 4500. <b>[KB-0001]</b>
+2. Enable NAT traversal: set the registry value
+   AssumeUDPEncapsulationContextOnSendRule to 2. <b>[KB-0001]</b>
+3. Reboot the workstation. <b>[KB-0001]</b>
+   ... 3 more steps
+
+confidence  <b>0.49</b></div>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="marker">5</span>
+        <div>
+          <h3>Governance decides</h3>
+          <p>The fourth agent runs its seven checks. Six pass. One doesn't: the confidence of 0.49 is below the required 0.70. So the answer is <em>not</em> sent automatically.</p>
+          <div class="readout">(ok     ) G1 grounded        <span style="opacity:.7">evidence was found</span>
+(ok     ) G2 cited           <span style="opacity:.7">sources are real</span>
+(<b style="color:var(--amber)">blocked</b>) G3 confident       <span style="opacity:.7">0.49 is below 0.70</span>
+(ok     ) G4 complete        <span style="opacity:.7">steps exist</span>
+(ok     ) G5 priority gate   <span style="opacity:.7">not a P1</span>
+(ok     ) G6 category gate   <span style="opacity:.7">not security</span>
+(ok     ) G7 intake clarity  <span style="opacity:.7">ticket was understood</span>
+
+verdict  <b style="color:var(--amber)">ESCALATE TO HUMAN</b></div>
+          <p>The engineer doesn't get a bare &ldquo;couldn't handle it.&rdquo; They get the draft answer, the sources, and the exact reason it was held back &mdash; a head start rather than a dead end.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">05</span><h2>The seven checks</h2></div>
+    <p>These are the safety rules. All seven must pass for an answer to go out on its own. Any single failure sends the ticket to a person.</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Governance policy v1</caption>
+        <thead>
+          <tr><th style="width: 62px;">Check</th><th style="width: 130px;">Name</th><th>What it asks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="code-cell">G1</td><td>Grounded</td><td>Did we actually find a supporting document, or are we guessing?</td></tr>
+          <tr><td class="code-cell">G2</td><td>Cited</td><td>Does every source the answer names really exist? (An AI citing a document that was never retrieved has invented it.)</td></tr>
+          <tr><td class="code-cell">G3</td><td>Confident</td><td>Is the confidence score above the threshold?</td></tr>
+          <tr><td class="code-cell">G4</td><td>Complete</td><td>Is there an actual answer with actual steps, not an empty shell?</td></tr>
+          <tr><td class="code-cell">G5</td><td>Priority gate</td><td>Is this a P1 emergency? Those always go to a human, however confident the AI is.</td></tr>
+          <tr><td class="code-cell">G6</td><td>Category gate</td><td>Is this a security incident or lost data? Those always go to a human too.</td></tr>
+          <tr><td class="code-cell">G7</td><td>Intake clarity</td><td>Did we understand the ticket well enough to be answering it at all?</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>G5 and G6 are deliberately blunt. If someone reports a suspected phishing email, it goes to a human even if the AI is 99% sure it knows the answer &mdash; because being wrong about a security breach costs far more than an unnecessary escalation.</p>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">06</span><h2>The bit that makes this a research project</h2></div>
+    <p>Here is the insight the whole project rests on, and it's worth understanding even if you skip everything else.</p>
+    <p>When an AI says it is &ldquo;90% confident&rdquo;, that number is not trustworthy. Researchers have measured this repeatedly: AI models are systematically <em>overconfident</em>. They are most convincing precisely when they're inventing things.</p>
+    <p>Now, most AI systems that try to add a safety layer add it as <em>another AI</em> &mdash; a second model asked &ldquo;is this answer good?&rdquo; But that second model has exactly the same weakness as the first. You've asked an unreliable judge to review an unreliable witness.</p>
+
+    <p class="pull">So OPS-AGENT's Governance agent contains no AI at all. It is seven fixed rules, written in ordinary code &mdash; the kind of thing a pocket calculator does. Same input, same answer, every time, with the reason written down.</p>
+
+    <p>That's what &ldquo;deterministic governance&rdquo; means in the project's title, and it buys three things a company actually needs: the decision can be <strong>audited</strong> (you can show a regulator exactly why a ticket was escalated), it can be <strong>reproduced</strong> (run it again, get the same result), and it can be <strong>explained</strong> (no shrugging and saying &ldquo;the model decided&rdquo;).</p>
+
+    <div class="callout">
+      <h3>The measurement that comes next</h3>
+      <p>The confidence score the system currently uses is the AI's own raw, untrusted number. The next phase of the project takes a set of tickets with known answers, measures how wrong that number is, and mathematically corrects it &mdash; so &ldquo;70% confident&rdquo; genuinely means right about 70% of the time. The project will then measure whether that correction reduces failures compared to three simpler systems. That comparison is the actual research result.</p>
+    </div>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">07</span><h2>Where the project stands</h2></div>
+    <p>The project runs on a sixteen-week schedule. Phase 3 &mdash; building the working pipeline described above &mdash; is finished and tested.</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Sixteen-week schedule</caption>
+        <thead>
+          <tr><th style="width: 92px;">Weeks</th><th>Phase</th><th style="width: 96px;">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="code-cell">1&ndash;2</td><td>Research existing systems, fix the question being asked</td><td><span class="pill done">Done</span></td></tr>
+          <tr><td class="code-cell">3&ndash;4</td><td>Gather and clean the ticket datasets</td><td><span class="pill hold">Partial</span></td></tr>
+          <tr><td class="code-cell">5&ndash;7</td><td><strong>Build the four-agent pipeline</strong></td><td><span class="pill now">Complete</span></td></tr>
+          <tr><td class="code-cell">8&ndash;9</td><td>Correct the confidence scores mathematically</td><td><span class="pill next">Next</span></td></tr>
+          <tr><td class="code-cell">10&ndash;12</td><td>Set the escalation threshold, build the audit log, label failures</td><td><span class="pill next">Planned</span></td></tr>
+          <tr><td class="code-cell">13&ndash;14</td><td>Compare four versions of the system on the same tickets</td><td><span class="pill next">Planned</span></td></tr>
+          <tr><td class="code-cell">15&ndash;16</td><td>Package it up, build a dashboard, write the paper</td><td><span class="pill next">Planned</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>What &ldquo;finished and tested&rdquo; means concretely: <strong>92 automated tests pass</strong>, and a separate verification script walks a ticket through all four agents step by step and confirms all 49 of its checks &mdash; including that no information is lost between agents, and that a nonsense ticket never reaches the answer-writing step.</p>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">08</span><h2>What's actually in the folder</h2></div>
+    <p>For anyone who opens the code, here's the map. Each agent lives in its own file so it can be tested and improved on its own.</p>
+
+    <div class="tree">OPS-AGENT/
+├── README.md              <span class="n">start here</span>
+├── requirements.txt       <span class="n">the libraries it needs</span>
+├── data/knowledge_base/   <span class="n">30 troubleshooting articles</span>
+├── src/ops_agent/
+│   ├── state.py           <span class="n">the shared clipboard agents pass along</span>
+│   ├── graph.py           <span class="n">the wiring between agents</span>
+│   ├── agents/            <span class="n">one file per agent</span>
+│   │   ├── intake.py
+│   │   ├── retrieval.py
+│   │   ├── resolution.py
+│   │   └── governance.py  <span class="n">the seven checks</span>
+│   ├── prompts/           <span class="n">the instructions given to the AI</span>
+│   ├── knowledge/         <span class="n">the searchable article library</span>
+│   └── llm/               <span class="n">swappable AI backends</span>
+├── scripts/
+│   ├── ingest_kb.py       <span class="n">builds the search index</span>
+│   └── verify_pipeline.py <span class="n">the step-by-step demo</span>
+├── tests/                 <span class="n">92 automated tests</span>
+└── docs/                  <span class="n">design decisions, written up</span></div>
+
+    <h3>Running it yourself</h3>
+    <p>It works with no API key and no internet connection, using a built-in offline mode &mdash; useful for demos.</p>
+    <pre class="shell"><span class="c"># one-time setup</span>
+py -3.10 -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+
+<span class="c"># build the searchable article library</span>
+python scripts/ingest_kb.py
+
+<span class="c"># watch a ticket travel through all four agents</span>
+python scripts/verify_pipeline.py
+
+<span class="c"># run the test suite</span>
+pytest</pre>
+    <p>The last command is the quickest way to see that it works: 92 tests, about a second and a half.</p>
+  </section>
+
+  <section class="col">
+    <div class="section-head"><span class="num">09</span><h2>Jargon, translated</h2></div>
+    <p>Terms that come up in the code and the report, in plain language.</p>
+
+    <dl class="glossary">
+      <div><dt>Agent</dt><dd>A program given one job and the ability to decide how to do it. Four of them here.</dd></div>
+      <div><dt>LLM</dt><dd>Large Language Model &mdash; the technology behind ChatGPT. It predicts text, which is why it can write a fix but also why it can confidently write a wrong one.</dd></div>
+      <div><dt>Hallucination</dt><dd>When an AI states something false as if it were fact. The single biggest risk this project is designed around.</dd></div>
+      <div><dt>Grounding</dt><dd>Forcing the AI to answer only from documents you gave it, rather than from memory. The main defence against hallucination.</dd></div>
+      <div><dt>RAG</dt><dd>Retrieval-Augmented Generation &mdash; the formal name for &ldquo;look it up first, then answer.&rdquo; Steps 3 and 4 of the walkthrough.</dd></div>
+      <div><dt>Vector database</dt><dd>A search index that finds documents by meaning rather than by exact words, so &ldquo;can't get online&rdquo; can match an article about network failures.</dd></div>
+      <div><dt>Embedding</dt><dd>The trick that makes the above work: text is converted into a list of numbers, and texts with similar meanings end up with similar numbers.</dd></div>
+      <div><dt>LangGraph</dt><dd>The framework used to wire the four agents together and control which one runs next.</dd></div>
+      <div><dt>Confidence score</dt><dd>The AI's own 0-to-1 estimate that its answer is right. Currently untrusted &mdash; correcting it is the next phase.</dd></div>
+      <div><dt>Calibration</dt><dd>Mathematically correcting that score so it means what it says.</dd></div>
+      <div><dt>Escalation</dt><dd>Handing a ticket to a human instead of answering automatically.</dd></div>
+      <div><dt>Deterministic</dt><dd>Same input always produces the same output. True of the Governance agent, deliberately not true of AI models.</dd></div>
+      <div><dt>Audit trail</dt><dd>A permanent record of every decision and why it was made &mdash; what a company would show a regulator.</dd></div>
+      <div><dt>P1 / P2 / P3 / P4</dt><dd>Standard helpdesk urgency levels. P1 is &ldquo;the whole office has stopped working&rdquo;; P4 is &ldquo;whenever you get a chance.&rdquo;</dd></div>
+      <div><dt>MAST</dt><dd>A published catalogue of the 14 ways multi-agent AI systems typically fail. The project will use it to count and classify its own failures.</dd></div>
+    </dl>
+  </section>
+
+  <section class="col">
+    <footer>
+      <p>OPS-AGENT: Multi-Agent IT Incident Resolution with Deterministic Governance &mdash; project synopsis, Department of Computer Science and Engineering (AI &amp; ML), D. Y. Patil College of Engineering and Technology, Kolhapur.</p>
+    </footer>
+  </section>
+
+</main>
+
+</body>
+</html>

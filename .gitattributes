@@ -1,0 +1,17 @@
+# Normalise text files to LF in the repository, checkout native on Windows.
+* text=auto
+
+# Explicit types
+*.py    text diff=python
+*.md    text
+*.html  text
+*.toml  text
+*.txt   text
+*.yml   text
+*.yaml  text
+
+# Binary -- never diff or normalise
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.faiss binary
