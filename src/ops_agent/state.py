@@ -8,7 +8,8 @@ at the top level where CLAUDE.md requires them.
 
 Append-only channels (``agent_trace``, ``errors``) use ``operator.add`` so that
 each node contributes without clobbering earlier entries.  That append-only
-trace is the seed of the Week 10-12 immutable audit trail.
+trace is what the Week 10-12 audit trail (``ops_agent.audit``) persists, one
+hash-chained row per event.
 """
 
 from __future__ import annotations
@@ -112,13 +113,23 @@ class OpsAgentState(TypedDict, total=False):
     resolution_steps: list[str]
     citations: list[str]  # doc_ids actually referenced by the draft solution
     resolution_rationale: str
-    confidence_score: float  # RAW, uncalibrated. Week 8-9 will calibrate this.
+    confidence_score: float  # RAW self-reported confidence, never overwritten.
+
+    # ---- Calibration node output (Week 8-9) -------------------------------- #
+    # Temperature-scaled estimate that the draft answer is correct. Kept in a
+    # separate field so the raw score the model reported is never lost: the
+    # audit trail and the evaluation both need the pair.
+    calibrated_confidence: float
+    confidence_is_calibrated: bool
+    calibration_profile_id: str
 
     # ---- Governance Agent output ------------------------------------------ #
     escalation_flag: bool
     governance_verdict: str  # GovernanceVerdict
     governance_reasons: list[str]
     policy_checks: dict[str, bool]
+    confidence_basis: str  # "raw" | "calibrated" -- which value check G3 judged
+    confidence_threshold_applied: float
 
     # ---- Terminal output --------------------------------------------------- #
     final_response: str
@@ -154,6 +165,8 @@ def new_state(
         retrieved_docs=[],
         grounded=False,
         confidence_score=0.0,
+        calibrated_confidence=0.0,
+        confidence_is_calibrated=False,
         escalation_flag=False,
         governance_reasons=[],
         policy_checks={},

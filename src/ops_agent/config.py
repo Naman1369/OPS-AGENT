@@ -52,7 +52,12 @@ class LLMSettings:
 
     provider: str = field(default_factory=lambda: _env("OPS_LLM_PROVIDER", ""))
     gemini_api_key: str = field(default_factory=lambda: _env("GEMINI_API_KEY", ""))
-    gemini_model: str = field(default_factory=lambda: _env("GEMINI_MODEL", "gemini-1.5-flash"))
+    # gemini-1.5-* models are retired. gemini-2.5-flash is a stable model that
+    # still accepts temperature=0 and a zero thinking budget, which is what a
+    # reproducible evaluation needs. Any current model ID can be set in .env.
+    gemini_model: str = field(default_factory=lambda: _env("GEMINI_MODEL", "gemini-2.5-flash"))
+    gemini_thinking_budget: int = field(default_factory=lambda: _env_int("OPS_GEMINI_THINKING_BUDGET", 0))
+    gemini_thinking_level: str = field(default_factory=lambda: _env("OPS_GEMINI_THINKING_LEVEL", "low"))
     ollama_base_url: str = field(default_factory=lambda: _env("OLLAMA_BASE_URL", "http://localhost:11434"))
     ollama_model: str = field(default_factory=lambda: _env("OLLAMA_MODEL", "llama3.1:8b"))
     temperature: float = field(default_factory=lambda: _env_float("OPS_LLM_TEMPERATURE", 0.0))
@@ -77,6 +82,11 @@ class RetrievalSettings:
     embedding_model: str = field(
         default_factory=lambda: _env("OPS_EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
     )
+    # Optional local directory holding a copy of the embedding model, for
+    # air-gapped machines. The model's identity is still ``embedding_model``.
+    embedding_model_path: str = field(default_factory=lambda: _env("OPS_EMBEDDING_MODEL_PATH", ""))
+    # "auto" (transformer, else TF-IDF), "minilm" (transformer only) or "tfidf".
+    embedder_backend: str = field(default_factory=lambda: _env("OPS_EMBEDDER", "auto"))
     top_k: int = field(default_factory=lambda: _env_int("OPS_RETRIEVAL_TOP_K", 4))
     # A document below this cosine similarity is not trustworthy grounding evidence.
     min_relevance: float = field(default_factory=lambda: _env_float("OPS_MIN_RELEVANCE", 0.25))
@@ -86,11 +96,27 @@ class RetrievalSettings:
 class GovernanceSettings:
     """Deterministic governance thresholds.
 
-    NOTE (Week 5-7 scope): these operate on the RAW confidence emitted by the
-    Resolution Agent.  Temperature scaling and split-conformal prediction are
-    Week 8-9 work and are deliberately absent.
+    ``confidence_threshold`` is the NAIVE threshold applied to the raw
+    confidence (the Week 5-7 behaviour, kept as the naively-governed baseline).
+    In calibrated mode check G3 instead reads the temperature-scaled confidence
+    and the threshold selected on the calibration split, both stored in the
+    calibration profile at ``calibration_path``. Every other check is identical
+    in both modes.
     """
 
+    # "auto": calibrated when a profile exists and matches the running
+    # configuration, raw otherwise. "calibrated" / "raw" force a mode.
+    mode: str = field(default_factory=lambda: _env("OPS_GOVERNANCE_MODE", "auto").strip().lower())
+    # A profile file, or a directory of profiles (one per configuration); the
+    # pipeline applies the profile whose fingerprint matches what is running.
+    calibration_path: Path = field(
+        default_factory=lambda: _resolve(_env("OPS_CALIBRATION_PATH", "artifacts/calibration"))
+    )
+    # Target Unsafe Resolution Rate (alpha: the fraction of all tickets that may
+    # be resolved autonomously AND unsafely) and the tolerated probability that
+    # the guarantee fails (delta), used when selecting the G3 threshold.
+    risk_alpha: float = field(default_factory=lambda: _env_float("OPS_RISK_ALPHA", 0.05))
+    risk_delta: float = field(default_factory=lambda: _env_float("OPS_RISK_DELTA", 0.10))
     confidence_threshold: float = field(default_factory=lambda: _env_float("OPS_CONFIDENCE_THRESHOLD", 0.70))
     min_citations: int = field(default_factory=lambda: _env_int("OPS_MIN_CITATIONS", 1))
     min_evidence_score: float = field(default_factory=lambda: _env_float("OPS_MIN_EVIDENCE_SCORE", 0.25))
@@ -101,10 +127,21 @@ class GovernanceSettings:
 
 
 @dataclass(frozen=True)
+class AuditSettings:
+    """Where the append-only, hash-chained audit trail lives (Week 10-12)."""
+
+    db_path: Path = field(default_factory=lambda: _resolve(_env("OPS_AUDIT_DB", "data/audit/audit.sqlite3")))
+    enabled: bool = field(
+        default_factory=lambda: _env("OPS_AUDIT_ENABLED", "true").strip().lower() in ("1", "true", "yes")
+    )
+
+
+@dataclass(frozen=True)
 class Settings:
     llm: LLMSettings = field(default_factory=LLMSettings)
     retrieval: RetrievalSettings = field(default_factory=RetrievalSettings)
     governance: GovernanceSettings = field(default_factory=GovernanceSettings)
+    audit: AuditSettings = field(default_factory=AuditSettings)
 
 
 def get_settings() -> Settings:

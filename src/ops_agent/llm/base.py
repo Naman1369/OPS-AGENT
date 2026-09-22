@@ -29,6 +29,7 @@ class LLMResponse:
     input_tokens: int = 0
     output_tokens: int = 0
     latency_ms: float = 0.0
+    token_count: str = "approximate"  # "exact" when the API reported usage
     raw: Any = field(default=None, repr=False)
 
 
@@ -97,6 +98,8 @@ class LLMProvider(ABC):
 
     name: str = "base"
     model: str = ""
+    # Backends that receive real usage figures from their API fill this in.
+    last_usage: dict[str, int] = {}
 
     @abstractmethod
     def _complete(
@@ -126,15 +129,29 @@ class LLMProvider(ABC):
         backends ignore it; the deterministic mock uses it to pick a behaviour.
         """
         started = time.perf_counter()
+        self.last_usage = {}
         text, raw = self._complete(prompt, system, temperature, max_tokens, json_mode, task)
         latency_ms = (time.perf_counter() - started) * 1000.0
+
+        # Prefer the token counts the API reports (billed output includes any
+        # thinking tokens); fall back to a ~4-characters-per-token estimate.
+        usage = self.last_usage or {}
+        if usage.get("input_tokens"):
+            input_tokens = int(usage["input_tokens"])
+            output_tokens = int(usage.get("output_tokens", 0)) + int(usage.get("thinking_tokens", 0))
+            token_count = "exact"
+        else:
+            input_tokens = _approx_tokens(prompt) + _approx_tokens(system or "")
+            output_tokens = _approx_tokens(text)
+            token_count = "approximate"
         return LLMResponse(
             text=text,
             provider=self.name,
             model=self.model,
-            input_tokens=_approx_tokens(prompt) + _approx_tokens(system or ""),
-            output_tokens=_approx_tokens(text),
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
             latency_ms=latency_ms,
+            token_count=token_count,
             raw=raw,
         )
 

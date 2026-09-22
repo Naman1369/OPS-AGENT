@@ -25,7 +25,12 @@ def get_provider(settings: LLMSettings | None = None) -> LLMProvider:
 
     if choice == "gemini":
         try:
-            return GeminiProvider(settings.gemini_api_key, settings.gemini_model)
+            return GeminiProvider(
+                settings.gemini_api_key,
+                settings.gemini_model,
+                thinking_budget=settings.gemini_thinking_budget,
+                thinking_level=settings.gemini_thinking_level,
+            )
         except LLMError as exc:
             logger.warning("Gemini unavailable (%s); falling back to Ollama.", exc)
             choice = "ollama"

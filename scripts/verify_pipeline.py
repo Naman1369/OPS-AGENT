@@ -64,7 +64,7 @@ def rule(title: str) -> None:
 def main() -> int:
     provider = get_provider()
 
-    rule("OPS-AGENT :: Week 5-7 pipeline verification")
+    rule("OPS-AGENT :: pipeline verification (Weeks 5-12)")
     print(f"LLM provider        : {provider.name} ({provider.model})")
     print(f"Confidence threshold: {SETTINGS.governance.confidence_threshold}")
     print(f"Min relevance       : {SETTINGS.retrieval.min_relevance}")
@@ -148,7 +148,9 @@ def main() -> int:
 
     # ---- Full compiled graph ------------------------------------------------ #
     rule("STEP 7 :: Compiled LangGraph end-to-end runs")
-    pipeline = compile_pipeline()
+    # Steps 7-8 verify the Week 5-7 topology, so they pin raw governance; step 9
+    # covers calibrated governance explicitly.
+    pipeline = compile_pipeline(mode="raw")
     check("graph compiles", pipeline is not None)
 
     for label, ticket in ROUTE_TICKETS:
@@ -204,6 +206,47 @@ def main() -> int:
     check("escalation flag is clear", delivered.get("escalation_flag") is False)
     check("delivered response cites its sources", "Sources:" in (delivered.get("final_response") or ""))
 
+    # ---- Step 9: calibrated governance (Weeks 8-12) ---------------------------- #
+    rule("STEP 9 :: Calibrated governance")
+    from ops_agent.calibration import CalibrationProfile
+    from ops_agent.graph import resolve_governance
+
+    resolution = resolve_governance("auto")
+    print(f"   auto mode resolves to : {resolution.mode}")
+    print(f"   reason                : {resolution.note}")
+    profile = resolution.profile or CalibrationProfile(
+        temperature=0.5, threshold=0.05, alpha=0.05, delta=0.1, feasible=True,
+        fingerprint={"note": "demonstration profile - no fitted profile matches this configuration"},
+    )
+    calibrated = compile_pipeline(profile=profile)
+    final = calibrated.invoke(new_state("VPN fails to connect with error 809 behind NAT."))
+    path = [event["agent"] for event in final["agent_trace"]]
+    print(f"   path                  : {' -> '.join(path)}")
+    print(f"   raw / calibrated      : {final['confidence_score']:.3f} / {final['calibrated_confidence']:.3f}")
+    print(f"   G3 threshold applied  : {final['confidence_threshold_applied']:.3f} ({final['confidence_basis']})")
+    check("calibration node runs between resolution and governance",
+          path[path.index("resolution") + 1] == "calibration")
+    check("raw confidence is preserved alongside the calibrated one",
+          final["confidence_is_calibrated"] and final["confidence_score"] != final["calibrated_confidence"])
+    check("G3 judged the calibrated value", final["confidence_basis"] == "calibrated")
+
+    # ---- Step 10: immutable audit trail (Weeks 10-12) ------------------------- #
+    rule("STEP 10 :: Hash-chained audit trail")
+    import tempfile
+
+    from ops_agent.audit import AuditLog
+    from ops_agent.graph import run_ticket
+
+    with tempfile.TemporaryDirectory() as tmp:
+        log = AuditLog(Path(tmp) / "audit.sqlite3")
+        for ticket in (MOCK_TICKET, ROUTE_TICKETS[1][1]):
+            run_ticket(ticket, pipeline=pipeline, audit=log)
+        verification = log.verify()
+        print(f"   rows written          : {log.count()}")
+        print(f"   chain verification    : {verification.detail} ({verification.rows_checked} rows)")
+        check("audit chain verifies", verification.ok)
+        check("one run_completed row per ticket", log.stats()["runs"] == 2)
+
     # ---- Summary -------------------------------------------------------------- #
     rule("VERIFICATION SUMMARY")
     if _failures:
@@ -211,7 +254,8 @@ def main() -> int:
         for failure in _failures:
             print(f"   - {failure}")
         return 1
-    print("All checks passed. State transitions correctly across all four agents.")
+    print("All checks passed. State transitions correctly across all four agents, the")
+    print("calibration node and the governance gate, and every run is audited.")
     return 0
 
 

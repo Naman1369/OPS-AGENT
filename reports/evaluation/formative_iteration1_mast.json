@@ -1,0 +1,88 @@
+{
+  "iteration": 1,
+  "purpose": "formative MAST analysis on the TRAIN split only (seed 42), before the comparative evaluation",
+  "variant": "naive_governed",
+  "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+  "provider": "mock",
+  "n_traces": 302,
+  "mast_occurrence": {
+    "FM-1.1": {
+      "name": "Disobey task specification",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-1.2": {
+      "name": "Disobey role specification",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-1.3": {
+      "name": "Step repetition",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-1.4": {
+      "name": "Loss of conversation history",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-1.5": {
+      "name": "Unaware of stopping conditions",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-2.1": {
+      "name": "Conversation reset",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-2.2": {
+      "name": "Fail to ask for clarification",
+      "occurred": 9,
+      "applicable": 302
+    },
+    "FM-2.3": {
+      "name": "Task derailment",
+      "occurred": 65,
+      "applicable": 302
+    },
+    "FM-2.4": {
+      "name": "Information withholding",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-2.5": {
+      "name": "Ignored other agent's input",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-2.6": {
+      "name": "Reasoning-action mismatch",
+      "occurred": 191,
+      "applicable": 302
+    },
+    "FM-3.1": {
+      "name": "Premature termination",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-3.2": {
+      "name": "No or incomplete verification",
+      "occurred": 0,
+      "applicable": 302
+    },
+    "FM-3.3": {
+      "name": "Incorrect verification",
+      "occurred": 16,
+      "applicable": 302
+    }
+  },
+  "example_FM_2_6": {
+    "ticket_id": "EV-ADV-0011",
+    "retrieved_ids": [
+      "KB-0016",
+      "KB-0020",
+      "KB-0003"
+    ]
+  }
+}

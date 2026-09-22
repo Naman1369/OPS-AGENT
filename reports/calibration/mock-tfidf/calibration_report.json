@@ -1,0 +1,111 @@
+{
+  "profile_path": "artifacts/calibration/mock-deterministic-rules-v1__tfidf-fallback.json",
+  "profile": {
+    "temperature": 19.9999885681954,
+    "threshold": 0.505,
+    "alpha": 0.05,
+    "delta": 0.1,
+    "feasible": true,
+    "fingerprint": {
+      "provider": "mock",
+      "model": "deterministic-rules-v1",
+      "embedder": "tfidf-fallback",
+      "intake_prompt": "intake-v1",
+      "resolution_prompt": "resolution-v1",
+      "kb_hash": "dcc438e3697a49c1",
+      "top_k": 4,
+      "min_relevance": 0.25
+    },
+    "method": "temperature-scaling",
+    "threshold_method": "ltt",
+    "metrics": {
+      "ece_before": 0.31695238095238093,
+      "ece_after": 0.2646935405464597,
+      "brier_before": 0.2704826666666667,
+      "brier_after": 0.25071223106184726,
+      "nll_before": 0.7347582246110637,
+      "nll_after": 0.694571691206954,
+      "auroc": 0.6625,
+      "temperature_at_search_bound": true,
+      "n_answered": 21,
+      "calibration_coverage": 0.0,
+      "calibration_unsafe_rate": 0.0,
+      "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+    },
+    "split": {
+      "seed": 42,
+      "n_calibration": 64
+    },
+    "created_at": "2026-09-22T06:05:22+00:00",
+    "schema_version": 1,
+    "profile_id": "eb074e676596"
+  },
+  "calibration_split": {
+    "before": {
+      "n": 21,
+      "accuracy": 0.7619047619047619,
+      "mean_confidence": 0.444952380952381,
+      "ece": 0.31695238095238093,
+      "ece_quantile": 0.316952380952381,
+      "mce": 0.44825000000000004,
+      "brier": 0.2704826666666667,
+      "nll": 0.7347582246110637,
+      "auroc": 0.6625,
+      "aurc": 0.14203869561565274
+    },
+    "after": {
+      "n": 21,
+      "accuracy": 0.7619047619047619,
+      "mean_confidence": 0.49721122135830215,
+      "ece": 0.2646935405464597,
+      "ece_quantile": 0.2646935405464597,
+      "mce": 0.49738903199031104,
+      "brier": 0.25071223106184726,
+      "nll": 0.694571691206954,
+      "auroc": 0.6625,
+      "aurc": 0.14203869561565274
+    }
+  },
+  "test_split": {
+    "before": {
+      "n": 31,
+      "accuracy": 0.8064516129032258,
+      "mean_confidence": 0.4447419354838709,
+      "ece": 0.36170967741935484,
+      "ece_quantile": 0.37190322580645163,
+      "mce": 0.45733333333333326,
+      "brier": 0.28053009677419355,
+      "nll": 0.7549418668901673,
+      "auroc": 0.6666666666666666,
+      "aurc": 0.11364119247755052
+    },
+    "after": {
+      "n": 31,
+      "accuracy": 0.8064516129032258,
+      "mean_confidence": 0.497204775059829,
+      "ece": 0.30924683784339696,
+      "ece_quantile": 0.34038199028229593,
+      "mce": 0.4968203349297716,
+      "brier": 0.25123297542261613,
+      "nll": 0.6956131921710657,
+      "auroc": 0.6666666666666666,
+      "aurc": 0.11364119247755052
+    }
+  },
+  "threshold_selection": {
+    "threshold": 0.505,
+    "method": "ltt",
+    "alpha": 0.05,
+    "delta": 0.1,
+    "feasible": true,
+    "n_calibration": 64,
+    "n_eligible": 20,
+    "n_auto_resolved": 0,
+    "unsafe_auto_resolved": 0,
+    "unsafe_resolution_rate": 0.0,
+    "unsafe_rate_upper_bound": 0.03533838008880079,
+    "conditional_risk": null,
+    "coverage": 0.0,
+    "candidates_tested": 100
+  }
+}

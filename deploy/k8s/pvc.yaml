@@ -1,0 +1,11 @@
+# Holds the vector index and the append-only audit database.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ops-agent-data
+  namespace: ops-agent
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi

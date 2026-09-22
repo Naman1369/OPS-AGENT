@@ -1,0 +1,111 @@
+{
+  "profile_path": "artifacts/calibration/mock-deterministic-rules-v1__sentence-transformers-all-minilm-l6-v2.json",
+  "profile": {
+    "temperature": 0.4740998339808141,
+    "threshold": 0.945,
+    "alpha": 0.05,
+    "delta": 0.1,
+    "feasible": true,
+    "fingerprint": {
+      "provider": "mock",
+      "model": "deterministic-rules-v1",
+      "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+      "intake_prompt": "intake-v1",
+      "resolution_prompt": "resolution-v1",
+      "kb_hash": "dcc438e3697a49c1",
+      "top_k": 4,
+      "min_relevance": 0.25
+    },
+    "method": "temperature-scaling",
+    "threshold_method": "ltt",
+    "metrics": {
+      "ece_before": 0.1378965517241379,
+      "ece_after": 0.08658532968243307,
+      "brier_before": 0.15003458620689653,
+      "brier_after": 0.1284336590458905,
+      "nll_before": 0.4793485671624757,
+      "nll_after": 0.42039823347550465,
+      "auroc": 0.7156673114119922,
+      "temperature_at_search_bound": false,
+      "n_answered": 58,
+      "calibration_coverage": 0.078125,
+      "calibration_unsafe_rate": 0.0,
+      "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+    },
+    "split": {
+      "seed": 42,
+      "n_calibration": 64
+    },
+    "created_at": "2026-09-22T06:05:14+00:00",
+    "schema_version": 1,
+    "profile_id": "63b4fb12cbf4"
+  },
+  "calibration_split": {
+    "before": {
+      "n": 58,
+      "accuracy": 0.8103448275862069,
+      "mean_confidence": 0.6807931034482759,
+      "ece": 0.1378965517241379,
+      "ece_quantile": 0.1490344827586207,
+      "mce": 0.20679999999999998,
+      "brier": 0.15003458620689653,
+      "nll": 0.4793485671624757,
+      "auroc": 0.7156673114119922,
+      "aurc": 0.11264227073492156
+    },
+    "after": {
+      "n": 58,
+      "accuracy": 0.8103448275862069,
+      "mean_confidence": 0.8022256123505616,
+      "ece": 0.08658532968243307,
+      "ece_quantile": 0.10328658044089328,
+      "mce": 0.3044375517745151,
+      "brier": 0.1284336590458905,
+      "nll": 0.42039823347550465,
+      "auroc": 0.7156673114119922,
+      "aurc": 0.11264227073492156
+    }
+  },
+  "test_split": {
+    "before": {
+      "n": 60,
+      "accuracy": 0.7333333333333333,
+      "mean_confidence": 0.6663333333333331,
+      "ece": 0.15350000000000003,
+      "ece_quantile": 0.15496666666666664,
+      "mce": 0.3833333333333333,
+      "brier": 0.15758453333333336,
+      "nll": 0.4930457293452328,
+      "auroc": 0.8295454545454546,
+      "aurc": 0.09712100749232662
+    },
+    "after": {
+      "n": 60,
+      "accuracy": 0.7333333333333333,
+      "mean_confidence": 0.7788355585153846,
+      "ece": 0.09546385786613909,
+      "ece_quantile": 0.10742542776494393,
+      "mce": 0.43597850442345565,
+      "brier": 0.14198082475901283,
+      "nll": 0.43772671350912945,
+      "auroc": 0.8295454545454546,
+      "aurc": 0.09712100749232662
+    }
+  },
+  "threshold_selection": {
+    "threshold": 0.945,
+    "method": "ltt",
+    "alpha": 0.05,
+    "delta": 0.1,
+    "feasible": true,
+    "n_calibration": 64,
+    "n_eligible": 55,
+    "n_auto_resolved": 5,
+    "unsafe_auto_resolved": 0,
+    "unsafe_resolution_rate": 0.0,
+    "unsafe_rate_upper_bound": 0.03533838008880079,
+    "conditional_risk": 0.0,
+    "coverage": 0.078125,
+    "candidates_tested": 12
+  }
+}

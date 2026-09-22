@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ops-agent-config
+  namespace: ops-agent
+data:
+  OPS_LLM_PROVIDER: "mock"          # set to "gemini" once the secret below exists
+  GEMINI_MODEL: "gemini-2.5-flash"
+  OPS_GOVERNANCE_MODE: "auto"       # calibrated when a matching profile ships in the image
+  OPS_EMBEDDER: "tfidf"
+  OPS_RETRIEVAL_TOP_K: "4"
+  OPS_MIN_RELEVANCE: "0.25"
+  OPS_CONFIDENCE_THRESHOLD: "0.70"  # naive threshold, used only in raw mode
+  OPS_AUDIT_ENABLED: "true"

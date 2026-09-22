@@ -1,0 +1,40 @@
+{
+  "temperature": 19.99999126137252,
+  "threshold": 0.505,
+  "alpha": 0.05,
+  "delta": 0.1,
+  "feasible": true,
+  "fingerprint": {
+    "provider": "mock",
+    "model": "deterministic-rules-v1",
+    "embedder": "tfidf-fallback",
+    "intake_prompt": "intake-v1",
+    "resolution_prompt": "resolution-v1",
+    "kb_hash": "dcc438e3697a49c1",
+    "top_k": 4,
+    "min_relevance": 0.25
+  },
+  "method": "temperature-scaling",
+  "threshold_method": "ltt",
+  "metrics": {
+    "ece_before": 0.26439999999999997,
+    "ece_after": 0.2222506397711747,
+    "brier_before": 0.27846736,
+    "brier_after": 0.2511277829009206,
+    "nll_before": 0.7509640615920165,
+    "nll_after": 0.695402824588346,
+    "auroc": 0.44047619047619047,
+    "temperature_at_search_bound": true,
+    "n_answered": 25,
+    "calibration_coverage": 0.015873015873015872,
+    "calibration_unsafe_rate": 0.0,
+    "calibration_unsafe_rate_upper_bound": 0.03588911950925004
+  },
+  "split": {
+    "seed": 48,
+    "n_calibration": 63
+  },
+  "created_at": "2026-09-22T06:10:26+00:00",
+  "schema_version": 1,
+  "profile_id": "690138f72e5f"
+}

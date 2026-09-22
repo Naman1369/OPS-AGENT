@@ -9,9 +9,14 @@
 *.txt   text
 *.yml   text
 *.yaml  text
+*.json  text
+*.jsonl text
+*.csv   text
+Dockerfile text
 
 # Binary -- never diff or normalise
 *.pdf   binary
 *.png   binary
 *.jpg   binary
+*.docx  binary
 *.faiss binary

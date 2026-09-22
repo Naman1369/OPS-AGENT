@@ -58,4 +58,8 @@ class OllamaProvider(LLMProvider):
         text = body.get("response", "")
         if not text.strip():
             raise LLMError("Ollama returned an empty response.")
+        self.last_usage = {
+            "input_tokens": int(body.get("prompt_eval_count", 0) or 0),
+            "output_tokens": int(body.get("eval_count", 0) or 0),
+        }
         return text, body

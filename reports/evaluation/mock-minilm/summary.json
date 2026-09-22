@@ -1,0 +1,3852 @@
+{
+  "generated_at": "2026-09-22T06:08:15+00:00",
+  "provider": "mock:deterministic-rules-v1",
+  "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+  "fingerprint": {
+    "provider": "mock",
+    "model": "deterministic-rules-v1",
+    "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+    "intake_prompt": "intake-v1",
+    "resolution_prompt": "resolution-v1",
+    "kb_hash": "dcc438e3697a49c1",
+    "top_k": 4,
+    "min_relevance": 0.25
+  },
+  "n_tickets": 430,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "canonical_seed": 42,
+  "alpha": 0.05,
+  "delta": 0.1,
+  "method": "ltt",
+  "canonical": {
+    "heldout": {
+      "single_agent": {
+        "n": 366,
+        "outcomes": {
+          "correct_resolution": 162,
+          "unsafe_resolution": 34,
+          "necessary_escalation": 116,
+          "unnecessary_escalation": 54
+        },
+        "automation_rate": 0.5355191256830601,
+        "correct_resolution_rate": 0.4426229508196721,
+        "unsafe_resolution_rate": 0.09289617486338798,
+        "unnecessary_escalation_rate": 0.14754098360655737,
+        "precision_of_delivered": 0.826530612244898,
+        "escalation": {
+          "precision": 0.6823529411764706,
+          "recall": 0.7733333333333333,
+          "f1": 0.725,
+          "accuracy": 0.7595628415300546,
+          "policy_recall": 0.7671232876712328
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 283,
+          "answered": 283,
+          "answer_accuracy_when_answered": 0.9434628975265018,
+          "top1_accuracy": 0.9434628975265018,
+          "retrieval_recall_at_k": 0.9858657243816255,
+          "retrieval_mrr": 0.9623085983510011,
+          "rouge_l_mean": 0.7208588944043053
+        },
+        "classification": {
+          "category_accuracy": 0.6420765027322405,
+          "category_macro_f1": 0.6343354670645253,
+          "priority_accuracy": 0.6475409836065574
+        },
+        "calibration": {
+          "n": 366,
+          "accuracy": 0.7295081967213115,
+          "mean_confidence": 0.6878224043715846,
+          "ece": 0.17346721311475416,
+          "ece_quantile": 0.2038661202185793,
+          "mce": 0.41466666666666663,
+          "brier": 0.15284606284153004,
+          "nll": 0.4812685380734342,
+          "auroc": 0.8869783982143533,
+          "aurc": 0.08356499401960116
+        },
+        "calibration_raw": {
+          "n": 366,
+          "accuracy": 0.7295081967213115,
+          "mean_confidence": 0.6878224043715846,
+          "ece": 0.17346721311475416,
+          "ece_quantile": 0.2038661202185793,
+          "mce": 0.41466666666666663,
+          "brier": 0.15284606284153004,
+          "nll": 0.4812685380734342,
+          "auroc": 0.8869783982143533,
+          "aurc": 0.08356499401960116
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 23,
+            "user_facing": 0,
+            "occurrence_rate": 0.06284153005464481,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 12,
+            "user_facing": 12,
+            "occurrence_rate": 0.03278688524590164,
+            "user_facing_rate": 0.03278688524590164
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 99,
+            "user_facing": 13,
+            "occurrence_rate": 0.27049180327868855,
+            "user_facing_rate": 0.03551912568306011
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 34,
+            "user_facing": 34,
+            "occurrence_rate": 0.09289617486338798,
+            "user_facing_rate": 0.09289617486338798
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 23,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.06284153005464481,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 99,
+            "traces_with_user_facing_failure": 13,
+            "rate": 0.27049180327868855,
+            "user_facing_rate": 0.03551912568306011
+          },
+          "FC3": {
+            "traces_with_failure": 34,
+            "traces_with_user_facing_failure": 34,
+            "rate": 0.09289617486338798,
+            "user_facing_rate": 0.09289617486338798
+          }
+        },
+        "mast_any_failure_rate": 0.3333333333333333,
+        "mast_any_user_facing_rate": 0.09289617486338798,
+        "cost": {
+          "input_tokens_total": 526808,
+          "output_tokens_total": 143034,
+          "tokens_per_ticket": 1830.1693989071039,
+          "projected_cost_usd_total": 0.824208,
+          "projected_cost_usd_per_1000_tickets": 2.2519344262295085,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 28.964620494538146,
+          "p50": 28.58935649999239,
+          "p95": 36.93548199996144
+        }
+      },
+      "ungoverned": {
+        "n": 366,
+        "outcomes": {
+          "correct_resolution": 213,
+          "unsafe_resolution": 153,
+          "necessary_escalation": 0,
+          "unnecessary_escalation": 0
+        },
+        "automation_rate": 1.0,
+        "correct_resolution_rate": 0.5819672131147541,
+        "unsafe_resolution_rate": 0.4180327868852459,
+        "unnecessary_escalation_rate": 0.0,
+        "precision_of_delivered": 0.5819672131147541,
+        "escalation": {
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "accuracy": 0.5819672131147541,
+          "policy_recall": 0.0
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 283,
+          "answered": 282,
+          "answer_accuracy_when_answered": 0.9326241134751773,
+          "top1_accuracy": 0.9293286219081273,
+          "retrieval_recall_at_k": 0.9752650176678446,
+          "retrieval_mrr": 0.9511189634864547,
+          "rouge_l_mean": 0.7448763928011334
+        },
+        "classification": {
+          "category_accuracy": 0.6420765027322405,
+          "category_macro_f1": 0.6343354670645253,
+          "priority_accuracy": 0.6475409836065574
+        },
+        "calibration": {
+          "n": 344,
+          "accuracy": 0.7645348837209303,
+          "mean_confidence": 0.6656889534883721,
+          "ece": 0.14801453488372102,
+          "ece_quantile": 0.14044476744186046,
+          "mce": 0.38471428571428573,
+          "brier": 0.158650363372093,
+          "nll": 0.49623554502613654,
+          "auroc": 0.8016007135145284,
+          "aurc": 0.09163031978183121
+        },
+        "calibration_raw": {
+          "n": 344,
+          "accuracy": 0.7645348837209303,
+          "mean_confidence": 0.6656889534883721,
+          "ece": 0.14801453488372102,
+          "ece_quantile": 0.14044476744186046,
+          "mce": 0.38471428571428573,
+          "brier": 0.158650363372093,
+          "nll": 0.49623554502613654,
+          "auroc": 0.8016007135145284,
+          "aurc": 0.09163031978183121
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 47,
+            "user_facing": 47,
+            "occurrence_rate": 0.1284153005464481,
+            "user_facing_rate": 0.1284153005464481
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 81,
+            "user_facing": 81,
+            "occurrence_rate": 0.22131147540983606,
+            "user_facing_rate": 0.22131147540983606
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 22,
+            "user_facing": 22,
+            "occurrence_rate": 0.060109289617486336,
+            "user_facing_rate": 0.060109289617486336
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 153,
+            "user_facing": 153,
+            "occurrence_rate": 0.4180327868852459,
+            "user_facing_rate": 0.4180327868852459
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 94,
+            "traces_with_user_facing_failure": 94,
+            "rate": 0.2568306010928962,
+            "user_facing_rate": 0.2568306010928962
+          },
+          "FC3": {
+            "traces_with_failure": 153,
+            "traces_with_user_facing_failure": 153,
+            "rate": 0.4180327868852459,
+            "user_facing_rate": 0.4180327868852459
+          }
+        },
+        "mast_any_failure_rate": 0.4180327868852459,
+        "mast_any_user_facing_rate": 0.4180327868852459,
+        "cost": {
+          "input_tokens_total": 933440,
+          "output_tokens_total": 169670,
+          "tokens_per_ticket": 3013.96174863388,
+          "projected_cost_usd_total": 1.20909,
+          "projected_cost_usd_per_1000_tickets": 3.3035245901639345,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 27.235279989071625,
+          "p50": 26.15788100001737,
+          "p95": 35.91988624995679
+        }
+      },
+      "naive_governed": {
+        "n": 366,
+        "outcomes": {
+          "correct_resolution": 117,
+          "unsafe_resolution": 18,
+          "necessary_escalation": 135,
+          "unnecessary_escalation": 96
+        },
+        "automation_rate": 0.36885245901639346,
+        "correct_resolution_rate": 0.319672131147541,
+        "unsafe_resolution_rate": 0.04918032786885246,
+        "unnecessary_escalation_rate": 0.26229508196721313,
+        "precision_of_delivered": 0.8666666666666667,
+        "escalation": {
+          "precision": 0.5844155844155844,
+          "recall": 0.8823529411764706,
+          "f1": 0.7031250000000001,
+          "accuracy": 0.6885245901639344,
+          "policy_recall": 0.8972602739726028
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 283,
+          "answered": 282,
+          "answer_accuracy_when_answered": 0.9326241134751773,
+          "top1_accuracy": 0.9293286219081273,
+          "retrieval_recall_at_k": 0.9752650176678446,
+          "retrieval_mrr": 0.9511189634864547,
+          "rouge_l_mean": 0.7448763928011334
+        },
+        "classification": {
+          "category_accuracy": 0.6420765027322405,
+          "category_macro_f1": 0.6343354670645253,
+          "priority_accuracy": 0.6475409836065574
+        },
+        "calibration": {
+          "n": 344,
+          "accuracy": 0.7645348837209303,
+          "mean_confidence": 0.6656889534883721,
+          "ece": 0.14801453488372102,
+          "ece_quantile": 0.14044476744186046,
+          "mce": 0.38471428571428573,
+          "brier": 0.158650363372093,
+          "nll": 0.49623554502613654,
+          "auroc": 0.8016007135145284,
+          "aurc": 0.09163031978183121
+        },
+        "calibration_raw": {
+          "n": 344,
+          "accuracy": 0.7645348837209303,
+          "mean_confidence": 0.6656889534883721,
+          "ece": 0.14801453488372102,
+          "ece_quantile": 0.14044476744186046,
+          "mce": 0.38471428571428573,
+          "brier": 0.158650363372093,
+          "nll": 0.49623554502613654,
+          "auroc": 0.8016007135145284,
+          "aurc": 0.09163031978183121
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 10,
+            "user_facing": 10,
+            "occurrence_rate": 0.0273224043715847,
+            "user_facing_rate": 0.0273224043715847
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 81,
+            "user_facing": 14,
+            "occurrence_rate": 0.22131147540983606,
+            "user_facing_rate": 0.03825136612021858
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 18,
+            "user_facing": 18,
+            "occurrence_rate": 0.04918032786885246,
+            "user_facing_rate": 0.04918032786885246
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 81,
+            "traces_with_user_facing_failure": 14,
+            "rate": 0.22131147540983606,
+            "user_facing_rate": 0.03825136612021858
+          },
+          "FC3": {
+            "traces_with_failure": 18,
+            "traces_with_user_facing_failure": 18,
+            "rate": 0.04918032786885246,
+            "user_facing_rate": 0.04918032786885246
+          }
+        },
+        "mast_any_failure_rate": 0.23224043715846995,
+        "mast_any_user_facing_rate": 0.04918032786885246,
+        "cost": {
+          "input_tokens_total": 933440,
+          "output_tokens_total": 169670,
+          "tokens_per_ticket": 3013.96174863388,
+          "projected_cost_usd_total": 1.20909,
+          "projected_cost_usd_per_1000_tickets": 3.3035245901639345,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 25.453824972678724,
+          "p50": 24.34910600004514,
+          "p95": 31.70659825005373
+        }
+      },
+      "calibration_governed": {
+        "n": 366,
+        "outcomes": {
+          "correct_resolution": 31,
+          "unsafe_resolution": 1,
+          "necessary_escalation": 152,
+          "unnecessary_escalation": 182
+        },
+        "automation_rate": 0.08743169398907104,
+        "correct_resolution_rate": 0.08469945355191257,
+        "unsafe_resolution_rate": 0.00273224043715847,
+        "unnecessary_escalation_rate": 0.4972677595628415,
+        "precision_of_delivered": 0.96875,
+        "escalation": {
+          "precision": 0.4550898203592814,
+          "recall": 0.9934640522875817,
+          "f1": 0.624229979466119,
+          "accuracy": 0.5,
+          "policy_recall": 0.9931506849315068
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 283,
+          "answered": 282,
+          "answer_accuracy_when_answered": 0.9326241134751773,
+          "top1_accuracy": 0.9293286219081273,
+          "retrieval_recall_at_k": 0.9752650176678446,
+          "retrieval_mrr": 0.9511189634864547,
+          "rouge_l_mean": 0.7448763928011334
+        },
+        "classification": {
+          "category_accuracy": 0.6420765027322405,
+          "category_macro_f1": 0.6343354670645253,
+          "priority_accuracy": 0.6475409836065574
+        },
+        "calibration": {
+          "n": 344,
+          "accuracy": 0.7645348837209303,
+          "mean_confidence": 0.7806618139534885,
+          "ece": 0.05730901744186039,
+          "ece_quantile": 0.06765249418604656,
+          "mce": 0.2708984285714286,
+          "brier": 0.1408807224879477,
+          "nll": 0.43754918894716793,
+          "auroc": 0.8016007135145284,
+          "aurc": 0.09163031978183121
+        },
+        "calibration_raw": {
+          "n": 344,
+          "accuracy": 0.7645348837209303,
+          "mean_confidence": 0.6656889534883721,
+          "ece": 0.14801453488372102,
+          "ece_quantile": 0.14044476744186046,
+          "mce": 0.38471428571428573,
+          "brier": 0.158650363372093,
+          "nll": 0.49623554502613654,
+          "auroc": 0.8016007135145284,
+          "aurc": 0.09163031978183121
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 81,
+            "user_facing": 0,
+            "occurrence_rate": 0.22131147540983606,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 366,
+            "occurred": 1,
+            "user_facing": 1,
+            "occurrence_rate": 0.00273224043715847,
+            "user_facing_rate": 0.00273224043715847
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 81,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.22131147540983606,
+            "user_facing_rate": 0.0
+          },
+          "FC3": {
+            "traces_with_failure": 1,
+            "traces_with_user_facing_failure": 1,
+            "rate": 0.00273224043715847,
+            "user_facing_rate": 0.00273224043715847
+          }
+        },
+        "mast_any_failure_rate": 0.22404371584699453,
+        "mast_any_user_facing_rate": 0.00273224043715847,
+        "cost": {
+          "input_tokens_total": 933440,
+          "output_tokens_total": 169670,
+          "tokens_per_ticket": 3013.96174863388,
+          "projected_cost_usd_total": 1.20909,
+          "projected_cost_usd_per_1000_tickets": 3.3035245901639345,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 29.341193270493818,
+          "p50": 28.93242250002004,
+          "p95": 35.88014000001749
+        }
+      }
+    },
+    "test": {
+      "single_agent": {
+        "n": 64,
+        "outcomes": {
+          "correct_resolution": 29,
+          "unsafe_resolution": 3,
+          "necessary_escalation": 23,
+          "unnecessary_escalation": 9
+        },
+        "automation_rate": 0.5,
+        "correct_resolution_rate": 0.453125,
+        "unsafe_resolution_rate": 0.046875,
+        "unnecessary_escalation_rate": 0.140625,
+        "precision_of_delivered": 0.90625,
+        "escalation": {
+          "precision": 0.71875,
+          "recall": 0.8846153846153846,
+          "f1": 0.7931034482758621,
+          "accuracy": 0.8125,
+          "policy_recall": 0.8846153846153846
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 49,
+          "answered": 49,
+          "answer_accuracy_when_answered": 0.8979591836734694,
+          "top1_accuracy": 0.8979591836734694,
+          "retrieval_recall_at_k": 0.9591836734693877,
+          "retrieval_mrr": 0.9251700680272108,
+          "rouge_l_mean": 0.7048602396606671
+        },
+        "classification": {
+          "category_accuracy": 0.6875,
+          "category_macro_f1": 0.6545817669172932,
+          "priority_accuracy": 0.59375
+        },
+        "calibration": {
+          "n": 64,
+          "accuracy": 0.6875,
+          "mean_confidence": 0.68596875,
+          "ece": 0.253,
+          "ece_quantile": 0.23790625000000004,
+          "mce": 0.5575454545454546,
+          "brier": 0.156039125,
+          "nll": 0.48837523858644494,
+          "auroc": 0.9244318181818182,
+          "aurc": 0.10757568034176515
+        },
+        "calibration_raw": {
+          "n": 64,
+          "accuracy": 0.6875,
+          "mean_confidence": 0.68596875,
+          "ece": 0.253,
+          "ece_quantile": 0.23790625000000004,
+          "mce": 0.5575454545454546,
+          "brier": 0.156039125,
+          "nll": 0.48837523858644494,
+          "auroc": 0.9244318181818182,
+          "aurc": 0.10757568034176515
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 4,
+            "user_facing": 0,
+            "occurrence_rate": 0.0625,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 2,
+            "user_facing": 2,
+            "occurrence_rate": 0.03125,
+            "user_facing_rate": 0.03125
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 20,
+            "user_facing": 2,
+            "occurrence_rate": 0.3125,
+            "user_facing_rate": 0.03125
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 3,
+            "user_facing": 3,
+            "occurrence_rate": 0.046875,
+            "user_facing_rate": 0.046875
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 4,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0625,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 20,
+            "traces_with_user_facing_failure": 2,
+            "rate": 0.3125,
+            "user_facing_rate": 0.03125
+          },
+          "FC3": {
+            "traces_with_failure": 3,
+            "traces_with_user_facing_failure": 3,
+            "rate": 0.046875,
+            "user_facing_rate": 0.046875
+          }
+        },
+        "mast_any_failure_rate": 0.328125,
+        "mast_any_user_facing_rate": 0.046875,
+        "cost": {
+          "input_tokens_total": 92047,
+          "output_tokens_total": 25043,
+          "tokens_per_ticket": 1829.53125,
+          "projected_cost_usd_total": 0.14416425,
+          "projected_cost_usd_per_1000_tickets": 2.2525664062499997,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 28.589826421871578,
+          "p50": 28.454219000025205,
+          "p95": 35.63977594997709
+        }
+      },
+      "ungoverned": {
+        "n": 64,
+        "outcomes": {
+          "correct_resolution": 37,
+          "unsafe_resolution": 27,
+          "necessary_escalation": 0,
+          "unnecessary_escalation": 0
+        },
+        "automation_rate": 1.0,
+        "correct_resolution_rate": 0.578125,
+        "unsafe_resolution_rate": 0.421875,
+        "unnecessary_escalation_rate": 0.0,
+        "precision_of_delivered": 0.578125,
+        "escalation": {
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "accuracy": 0.578125,
+          "policy_recall": 0.0
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 49,
+          "answered": 49,
+          "answer_accuracy_when_answered": 0.8979591836734694,
+          "top1_accuracy": 0.8979591836734694,
+          "retrieval_recall_at_k": 0.9591836734693877,
+          "retrieval_mrr": 0.9251700680272108,
+          "rouge_l_mean": 0.7131019971281105
+        },
+        "classification": {
+          "category_accuracy": 0.6875,
+          "category_macro_f1": 0.6545817669172932,
+          "priority_accuracy": 0.59375
+        },
+        "calibration": {
+          "n": 60,
+          "accuracy": 0.7333333333333333,
+          "mean_confidence": 0.6663333333333331,
+          "ece": 0.15350000000000003,
+          "ece_quantile": 0.15496666666666664,
+          "mce": 0.3833333333333333,
+          "brier": 0.15758453333333336,
+          "nll": 0.4930457293452328,
+          "auroc": 0.8295454545454546,
+          "aurc": 0.09712100749232662
+        },
+        "calibration_raw": {
+          "n": 60,
+          "accuracy": 0.7333333333333333,
+          "mean_confidence": 0.6663333333333331,
+          "ece": 0.15350000000000003,
+          "ece_quantile": 0.15496666666666664,
+          "mce": 0.3833333333333333,
+          "brier": 0.15758453333333336,
+          "nll": 0.4930457293452328,
+          "auroc": 0.8295454545454546,
+          "aurc": 0.09712100749232662
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 8,
+            "user_facing": 8,
+            "occurrence_rate": 0.125,
+            "user_facing_rate": 0.125
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 16,
+            "user_facing": 16,
+            "occurrence_rate": 0.25,
+            "user_facing_rate": 0.25
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 4,
+            "user_facing": 4,
+            "occurrence_rate": 0.0625,
+            "user_facing_rate": 0.0625
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 27,
+            "user_facing": 27,
+            "occurrence_rate": 0.421875,
+            "user_facing_rate": 0.421875
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 0,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": null,
+            "user_facing_rate": null
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 19,
+            "traces_with_user_facing_failure": 19,
+            "rate": 0.296875,
+            "user_facing_rate": 0.296875
+          },
+          "FC3": {
+            "traces_with_failure": 27,
+            "traces_with_user_facing_failure": 27,
+            "rate": 0.421875,
+            "user_facing_rate": 0.421875
+          }
+        },
+        "mast_any_failure_rate": 0.421875,
+        "mast_any_user_facing_rate": 0.421875,
+        "cost": {
+          "input_tokens_total": 163235,
+          "output_tokens_total": 29993,
+          "tokens_per_ticket": 3019.1875,
+          "projected_cost_usd_total": 0.21240525,
+          "projected_cost_usd_per_1000_tickets": 3.31883203125,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 27.089274874999347,
+          "p50": 26.000004500019713,
+          "p95": 33.60700315000144
+        }
+      },
+      "naive_governed": {
+        "n": 64,
+        "outcomes": {
+          "correct_resolution": 24,
+          "unsafe_resolution": 2,
+          "necessary_escalation": 25,
+          "unnecessary_escalation": 13
+        },
+        "automation_rate": 0.40625,
+        "correct_resolution_rate": 0.375,
+        "unsafe_resolution_rate": 0.03125,
+        "unnecessary_escalation_rate": 0.203125,
+        "precision_of_delivered": 0.9230769230769231,
+        "escalation": {
+          "precision": 0.6578947368421053,
+          "recall": 0.9259259259259259,
+          "f1": 0.7692307692307692,
+          "accuracy": 0.765625,
+          "policy_recall": 0.9615384615384616
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 49,
+          "answered": 49,
+          "answer_accuracy_when_answered": 0.8979591836734694,
+          "top1_accuracy": 0.8979591836734694,
+          "retrieval_recall_at_k": 0.9591836734693877,
+          "retrieval_mrr": 0.9251700680272108,
+          "rouge_l_mean": 0.7131019971281105
+        },
+        "classification": {
+          "category_accuracy": 0.6875,
+          "category_macro_f1": 0.6545817669172932,
+          "priority_accuracy": 0.59375
+        },
+        "calibration": {
+          "n": 60,
+          "accuracy": 0.7333333333333333,
+          "mean_confidence": 0.6663333333333331,
+          "ece": 0.15350000000000003,
+          "ece_quantile": 0.15496666666666664,
+          "mce": 0.3833333333333333,
+          "brier": 0.15758453333333336,
+          "nll": 0.4930457293452328,
+          "auroc": 0.8295454545454546,
+          "aurc": 0.09712100749232662
+        },
+        "calibration_raw": {
+          "n": 60,
+          "accuracy": 0.7333333333333333,
+          "mean_confidence": 0.6663333333333331,
+          "ece": 0.15350000000000003,
+          "ece_quantile": 0.15496666666666664,
+          "mce": 0.3833333333333333,
+          "brier": 0.15758453333333336,
+          "nll": 0.4930457293452328,
+          "auroc": 0.8295454545454546,
+          "aurc": 0.09712100749232662
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 1,
+            "user_facing": 1,
+            "occurrence_rate": 0.015625,
+            "user_facing_rate": 0.015625
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 16,
+            "user_facing": 2,
+            "occurrence_rate": 0.25,
+            "user_facing_rate": 0.03125
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 2,
+            "user_facing": 2,
+            "occurrence_rate": 0.03125,
+            "user_facing_rate": 0.03125
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 16,
+            "traces_with_user_facing_failure": 2,
+            "rate": 0.25,
+            "user_facing_rate": 0.03125
+          },
+          "FC3": {
+            "traces_with_failure": 2,
+            "traces_with_user_facing_failure": 2,
+            "rate": 0.03125,
+            "user_facing_rate": 0.03125
+          }
+        },
+        "mast_any_failure_rate": 0.25,
+        "mast_any_user_facing_rate": 0.03125,
+        "cost": {
+          "input_tokens_total": 163235,
+          "output_tokens_total": 29993,
+          "tokens_per_ticket": 3019.1875,
+          "projected_cost_usd_total": 0.21240525,
+          "projected_cost_usd_per_1000_tickets": 3.31883203125,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 25.732116109374203,
+          "p50": 24.674320000031003,
+          "p95": 30.747982149978263
+        }
+      },
+      "calibration_governed": {
+        "n": 64,
+        "outcomes": {
+          "correct_resolution": 7,
+          "unsafe_resolution": 0,
+          "necessary_escalation": 27,
+          "unnecessary_escalation": 30
+        },
+        "automation_rate": 0.109375,
+        "correct_resolution_rate": 0.109375,
+        "unsafe_resolution_rate": 0.0,
+        "unnecessary_escalation_rate": 0.46875,
+        "precision_of_delivered": 1.0,
+        "escalation": {
+          "precision": 0.47368421052631576,
+          "recall": 1.0,
+          "f1": 0.6428571428571429,
+          "accuracy": 0.53125,
+          "policy_recall": 1.0
+        },
+        "resolution_quality": {
+          "tickets_with_gold": 49,
+          "answered": 49,
+          "answer_accuracy_when_answered": 0.8979591836734694,
+          "top1_accuracy": 0.8979591836734694,
+          "retrieval_recall_at_k": 0.9591836734693877,
+          "retrieval_mrr": 0.9251700680272108,
+          "rouge_l_mean": 0.7131019971281105
+        },
+        "classification": {
+          "category_accuracy": 0.6875,
+          "category_macro_f1": 0.6545817669172932,
+          "priority_accuracy": 0.59375
+        },
+        "calibration": {
+          "n": 60,
+          "accuracy": 0.7333333333333333,
+          "mean_confidence": 0.7788356000000001,
+          "ece": 0.09546379999999997,
+          "ece_quantile": 0.10742536666666666,
+          "mce": 0.43597850000000005,
+          "brier": 0.14198080882560002,
+          "nll": 0.4377266905276319,
+          "auroc": 0.8295454545454546,
+          "aurc": 0.09712100749232662
+        },
+        "calibration_raw": {
+          "n": 60,
+          "accuracy": 0.7333333333333333,
+          "mean_confidence": 0.6663333333333331,
+          "ece": 0.15350000000000003,
+          "ece_quantile": 0.15496666666666664,
+          "mce": 0.3833333333333333,
+          "brier": 0.15758453333333336,
+          "nll": 0.4930457293452328,
+          "auroc": 0.8295454545454546,
+          "aurc": 0.09712100749232662
+        },
+        "mast": {
+          "FM-1.1": {
+            "name": "Disobey task specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.2": {
+            "name": "Disobey role specification",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.3": {
+            "name": "Step repetition",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.4": {
+            "name": "Loss of conversation history",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-1.5": {
+            "name": "Unaware of stopping conditions",
+            "category": "FC1",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.1": {
+            "name": "Conversation reset",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.2": {
+            "name": "Fail to ask for clarification",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.3": {
+            "name": "Task derailment",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 16,
+            "user_facing": 0,
+            "occurrence_rate": 0.25,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.4": {
+            "name": "Information withholding",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.5": {
+            "name": "Ignored other agent's input",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-2.6": {
+            "name": "Reasoning-action mismatch",
+            "category": "FC2",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.1": {
+            "name": "Premature termination",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.2": {
+            "name": "No or incomplete verification",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FM-3.3": {
+            "name": "Incorrect verification",
+            "category": "FC3",
+            "applicable": 64,
+            "occurred": 0,
+            "user_facing": 0,
+            "occurrence_rate": 0.0,
+            "user_facing_rate": 0.0
+          }
+        },
+        "mast_categories": {
+          "FC1": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          },
+          "FC2": {
+            "traces_with_failure": 16,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.25,
+            "user_facing_rate": 0.0
+          },
+          "FC3": {
+            "traces_with_failure": 0,
+            "traces_with_user_facing_failure": 0,
+            "rate": 0.0,
+            "user_facing_rate": 0.0
+          }
+        },
+        "mast_any_failure_rate": 0.25,
+        "mast_any_user_facing_rate": 0.0,
+        "cost": {
+          "input_tokens_total": 163235,
+          "output_tokens_total": 29993,
+          "tokens_per_ticket": 3019.1875,
+          "projected_cost_usd_total": 0.21240525,
+          "projected_cost_usd_per_1000_tickets": 3.31883203125,
+          "projection_model": "gemini-2.5-flash",
+          "token_count": [
+            "approximate"
+          ]
+        },
+        "latency_ms": {
+          "mean": 29.16447459375604,
+          "p50": 28.731362499968327,
+          "p95": 36.75463015002265
+        }
+      }
+    },
+    "n_heldout": 366,
+    "tests": {
+      "unsafe": {
+        "label": "Unsafe autonomous resolution",
+        "cochran_q": {
+          "q": 354.07438016528926,
+          "df": 3,
+          "p_value": 1.9562933436024047e-76
+        },
+        "v4_vs": {
+          "single_agent": {
+            "only_first": 0,
+            "only_second": 33,
+            "discordant": 33,
+            "p_value": 2.3283064365386963e-10,
+            "difference": -0.09016393442622951,
+            "ci_low": -0.12021857923497267,
+            "ci_high": -0.060109289617486336,
+            "p_holm": 4.656612873077393e-10
+          },
+          "ungoverned": {
+            "only_first": 0,
+            "only_second": 152,
+            "discordant": 152,
+            "p_value": 3.503246160812043e-46,
+            "difference": -0.41530054644808745,
+            "ci_low": -0.4672131147540984,
+            "ci_high": -0.366120218579235,
+            "p_holm": 1.0509738482436128e-45
+          },
+          "naive_governed": {
+            "only_first": 0,
+            "only_second": 17,
+            "discordant": 17,
+            "p_value": 1.52587890625e-05,
+            "difference": -0.04644808743169399,
+            "ci_low": -0.06830601092896176,
+            "ci_high": -0.0273224043715847,
+            "p_holm": 1.52587890625e-05
+          }
+        },
+        "rates": {
+          "single_agent": 0.09289617486338798,
+          "ungoverned": 0.4180327868852459,
+          "naive_governed": 0.04918032786885246,
+          "calibration_governed": 0.00273224043715847
+        }
+      },
+      "correct": {
+        "label": "Correct autonomous resolution",
+        "cochran_q": {
+          "q": 351.176759410802,
+          "df": 3,
+          "p_value": 8.29602393911353e-76
+        },
+        "v4_vs": {
+          "single_agent": {
+            "only_first": 0,
+            "only_second": 131,
+            "discordant": 131,
+            "p_value": 7.346839692639297e-40,
+            "difference": -0.35792349726775957,
+            "ci_low": -0.40710382513661203,
+            "ci_high": -0.3087431693989071,
+            "p_holm": 1.4693679385278594e-39
+          },
+          "ungoverned": {
+            "only_first": 0,
+            "only_second": 182,
+            "discordant": 182,
+            "p_value": 3.2626522339992623e-55,
+            "difference": -0.4972677595628415,
+            "ci_low": -0.5491803278688525,
+            "ci_high": -0.44808743169398907,
+            "p_holm": 9.787956701997787e-55
+          },
+          "naive_governed": {
+            "only_first": 0,
+            "only_second": 86,
+            "discordant": 86,
+            "p_value": 2.5849394142282115e-26,
+            "difference": -0.23497267759562843,
+            "ci_low": -0.2786885245901639,
+            "ci_high": -0.1912568306010929,
+            "p_holm": 2.5849394142282115e-26
+          }
+        },
+        "rates": {
+          "single_agent": 0.4426229508196721,
+          "ungoverned": 0.5819672131147541,
+          "naive_governed": 0.319672131147541,
+          "calibration_governed": 0.08469945355191257
+        }
+      },
+      "mast": {
+        "label": "Any user-facing MAST failure",
+        "cochran_q": {
+          "q": 354.07438016528926,
+          "df": 3,
+          "p_value": 1.9562933436024047e-76
+        },
+        "v4_vs": {
+          "single_agent": {
+            "only_first": 0,
+            "only_second": 33,
+            "discordant": 33,
+            "p_value": 2.3283064365386963e-10,
+            "difference": -0.09016393442622951,
+            "ci_low": -0.12021857923497267,
+            "ci_high": -0.060109289617486336,
+            "p_holm": 4.656612873077393e-10
+          },
+          "ungoverned": {
+            "only_first": 0,
+            "only_second": 152,
+            "discordant": 152,
+            "p_value": 3.503246160812043e-46,
+            "difference": -0.41530054644808745,
+            "ci_low": -0.4672131147540984,
+            "ci_high": -0.366120218579235,
+            "p_holm": 1.0509738482436128e-45
+          },
+          "naive_governed": {
+            "only_first": 0,
+            "only_second": 17,
+            "discordant": 17,
+            "p_value": 1.52587890625e-05,
+            "difference": -0.04644808743169399,
+            "ci_low": -0.06830601092896176,
+            "ci_high": -0.0273224043715847,
+            "p_holm": 1.52587890625e-05
+          }
+        },
+        "rates": {
+          "single_agent": 0.09289617486338798,
+          "ungoverned": 0.4180327868852459,
+          "naive_governed": 0.04918032786885246,
+          "calibration_governed": 0.00273224043715847
+        }
+      }
+    },
+    "intervals": {
+      "single_agent": {
+        "unsafe_resolution_rate": [
+          0.06557377049180328,
+          0.12295081967213115
+        ],
+        "correct_resolution_rate": [
+          0.3907103825136612,
+          0.49453551912568305
+        ],
+        "mast_any_user_facing_rate": [
+          0.06557377049180328,
+          0.12295081967213115
+        ]
+      },
+      "ungoverned": {
+        "unsafe_resolution_rate": [
+          0.3633879781420765,
+          0.46994535519125685
+        ],
+        "correct_resolution_rate": [
+          0.5300546448087432,
+          0.6366120218579235
+        ],
+        "mast_any_user_facing_rate": [
+          0.3633879781420765,
+          0.46994535519125685
+        ]
+      },
+      "naive_governed": {
+        "unsafe_resolution_rate": [
+          0.0273224043715847,
+          0.07103825136612021
+        ],
+        "correct_resolution_rate": [
+          0.27049180327868855,
+          0.36885245901639346
+        ],
+        "mast_any_user_facing_rate": [
+          0.0273224043715847,
+          0.07103825136612021
+        ]
+      },
+      "calibration_governed": {
+        "unsafe_resolution_rate": [
+          0.0,
+          0.00819672131147541
+        ],
+        "correct_resolution_rate": [
+          0.05737704918032787,
+          0.11748633879781421
+        ],
+        "mast_any_user_facing_rate": [
+          0.0,
+          0.00819672131147541
+        ]
+      }
+    },
+    "by_adversarial_type": {
+      "single_agent": {
+        "ambiguous": {
+          "n": 17,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_data_loss": {
+          "n": 9,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_security": {
+          "n": 13,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "in_kb": {
+          "n": 254,
+          "automation_rate": 0.6929133858267716,
+          "unsafe_resolution_rate": 0.05511811023622047,
+          "correct_resolution_rate": 0.6377952755905512
+        },
+        "insufficient": {
+          "n": 13,
+          "automation_rate": 0.15384615384615385,
+          "unsafe_resolution_rate": 0.15384615384615385,
+          "correct_resolution_rate": 0.0
+        },
+        "multi_issue": {
+          "n": 17,
+          "automation_rate": 0.5882352941176471,
+          "unsafe_resolution_rate": 0.5882352941176471,
+          "correct_resolution_rate": 0.0
+        },
+        "out_of_kb": {
+          "n": 21,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "p1_outage": {
+          "n": 13,
+          "automation_rate": 0.5384615384615384,
+          "unsafe_resolution_rate": 0.5384615384615384,
+          "correct_resolution_rate": 0.0
+        },
+        "prompt_injection": {
+          "n": 9,
+          "automation_rate": 0.1111111111111111,
+          "unsafe_resolution_rate": 0.1111111111111111,
+          "correct_resolution_rate": 0.0
+        }
+      },
+      "ungoverned": {
+        "ambiguous": {
+          "n": 17,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_data_loss": {
+          "n": 9,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_security": {
+          "n": 13,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "in_kb": {
+          "n": 254,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 0.16141732283464566,
+          "correct_resolution_rate": 0.8385826771653543
+        },
+        "insufficient": {
+          "n": 13,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "multi_issue": {
+          "n": 17,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "out_of_kb": {
+          "n": 21,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "p1_outage": {
+          "n": 13,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        },
+        "prompt_injection": {
+          "n": 9,
+          "automation_rate": 1.0,
+          "unsafe_resolution_rate": 1.0,
+          "correct_resolution_rate": 0.0
+        }
+      },
+      "naive_governed": {
+        "ambiguous": {
+          "n": 17,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_data_loss": {
+          "n": 9,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_security": {
+          "n": 13,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "in_kb": {
+          "n": 254,
+          "automation_rate": 0.4763779527559055,
+          "unsafe_resolution_rate": 0.015748031496062992,
+          "correct_resolution_rate": 0.46062992125984253
+        },
+        "insufficient": {
+          "n": 13,
+          "automation_rate": 0.07692307692307693,
+          "unsafe_resolution_rate": 0.07692307692307693,
+          "correct_resolution_rate": 0.0
+        },
+        "multi_issue": {
+          "n": 17,
+          "automation_rate": 0.5294117647058824,
+          "unsafe_resolution_rate": 0.5294117647058824,
+          "correct_resolution_rate": 0.0
+        },
+        "out_of_kb": {
+          "n": 21,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "p1_outage": {
+          "n": 13,
+          "automation_rate": 0.23076923076923078,
+          "unsafe_resolution_rate": 0.23076923076923078,
+          "correct_resolution_rate": 0.0
+        },
+        "prompt_injection": {
+          "n": 9,
+          "automation_rate": 0.1111111111111111,
+          "unsafe_resolution_rate": 0.1111111111111111,
+          "correct_resolution_rate": 0.0
+        }
+      },
+      "calibration_governed": {
+        "ambiguous": {
+          "n": 17,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_data_loss": {
+          "n": 9,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "disguised_security": {
+          "n": 13,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "in_kb": {
+          "n": 254,
+          "automation_rate": 0.1220472440944882,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.1220472440944882
+        },
+        "insufficient": {
+          "n": 13,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "multi_issue": {
+          "n": 17,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "out_of_kb": {
+          "n": 21,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        },
+        "p1_outage": {
+          "n": 13,
+          "automation_rate": 0.07692307692307693,
+          "unsafe_resolution_rate": 0.07692307692307693,
+          "correct_resolution_rate": 0.0
+        },
+        "prompt_injection": {
+          "n": 9,
+          "automation_rate": 0.0,
+          "unsafe_resolution_rate": 0.0,
+          "correct_resolution_rate": 0.0
+        }
+      }
+    },
+    "heldout_calibration": {
+      "raw": {
+        "n": 344,
+        "accuracy": 0.7645348837209303,
+        "mean_confidence": 0.6656889534883721,
+        "ece": 0.14801453488372102,
+        "ece_quantile": 0.14044476744186046,
+        "mce": 0.38471428571428573,
+        "brier": 0.158650363372093,
+        "nll": 0.49623554502613654,
+        "auroc": 0.8016007135145284,
+        "aurc": 0.09163031978183121
+      },
+      "calibrated": {
+        "n": 344,
+        "accuracy": 0.7645348837209303,
+        "mean_confidence": 0.7806617628451776,
+        "ece": 0.057309059928652734,
+        "ece_quantile": 0.06765251900623098,
+        "mce": 0.2708984546440531,
+        "brier": 0.1408807343683586,
+        "nll": 0.43754924116228316,
+        "auroc": 0.8016007135145284,
+        "aurc": 0.09163031978183121
+      },
+      "single_agent_raw": {
+        "n": 366,
+        "accuracy": 0.7295081967213115,
+        "mean_confidence": 0.6878224043715846,
+        "ece": 0.17346721311475416,
+        "ece_quantile": 0.2038661202185793,
+        "mce": 0.41466666666666663,
+        "brier": 0.15284606284153004,
+        "nll": 0.4812685380734342,
+        "auroc": 0.8869783982143533,
+        "aurc": 0.08356499401960116
+      }
+    },
+    "calibration_fit": {
+      "n_calibration_tickets": 64,
+      "n_answered": 58,
+      "temperature": {
+        "temperature": 0.4740998339808141,
+        "fitted": true,
+        "n_samples": 58,
+        "nll_before": 0.47934856716247576,
+        "nll_after": 0.42039823347550465,
+        "at_bound": false
+      },
+      "before": {
+        "n": 58,
+        "accuracy": 0.8103448275862069,
+        "mean_confidence": 0.6807931034482759,
+        "ece": 0.1378965517241379,
+        "ece_quantile": 0.1490344827586207,
+        "mce": 0.20679999999999998,
+        "brier": 0.15003458620689653,
+        "nll": 0.4793485671624757,
+        "auroc": 0.7156673114119922,
+        "aurc": 0.11264227073492156
+      },
+      "after": {
+        "n": 58,
+        "accuracy": 0.8103448275862069,
+        "mean_confidence": 0.8022256123505616,
+        "ece": 0.08658532968243307,
+        "ece_quantile": 0.10328658044089328,
+        "mce": 0.3044375517745151,
+        "brier": 0.1284336590458905,
+        "nll": 0.42039823347550465,
+        "auroc": 0.7156673114119922,
+        "aurc": 0.11264227073492156
+      },
+      "threshold_selection": {
+        "threshold": 0.945,
+        "method": "ltt",
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "n_calibration": 64,
+        "n_eligible": 55,
+        "n_auto_resolved": 5,
+        "unsafe_auto_resolved": 0,
+        "unsafe_resolution_rate": 0.0,
+        "unsafe_rate_upper_bound": 0.03533838008880079,
+        "conditional_risk": 0.0,
+        "coverage": 0.078125,
+        "candidates_tested": 12
+      }
+    },
+    "profile": {
+      "temperature": 0.4740998339808141,
+      "threshold": 0.945,
+      "alpha": 0.05,
+      "delta": 0.1,
+      "feasible": true,
+      "fingerprint": {
+        "provider": "mock",
+        "model": "deterministic-rules-v1",
+        "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+        "intake_prompt": "intake-v1",
+        "resolution_prompt": "resolution-v1",
+        "kb_hash": "dcc438e3697a49c1",
+        "top_k": 4,
+        "min_relevance": 0.25
+      },
+      "method": "temperature-scaling",
+      "threshold_method": "ltt",
+      "metrics": {
+        "ece_before": 0.1378965517241379,
+        "ece_after": 0.08658532968243307,
+        "brier_before": 0.15003458620689653,
+        "brier_after": 0.1284336590458905,
+        "nll_before": 0.4793485671624757,
+        "nll_after": 0.42039823347550465,
+        "auroc": 0.7156673114119922,
+        "temperature_at_search_bound": false,
+        "n_answered": 58,
+        "calibration_coverage": 0.078125,
+        "calibration_unsafe_rate": 0.0,
+        "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+      },
+      "split": {
+        "seed": 42,
+        "n_calibration": 64
+      },
+      "created_at": "2026-09-22T06:06:12+00:00",
+      "schema_version": 1,
+      "profile_id": "63b4fb12cbf4"
+    }
+  },
+  "aggregate": {
+    "heldout": {
+      "single_agent": {
+        "automation_rate": {
+          "mean": 0.5331517554924043,
+          "sd": 0.007099065177992055,
+          "min": 0.5217391304347826,
+          "max": 0.5449591280653951
+        },
+        "correct_resolution_rate": {
+          "mean": 0.4428364397690352,
+          "sd": 0.004585929912753522,
+          "min": 0.4344262295081967,
+          "max": 0.45081967213114754
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.09031531572336923,
+          "sd": 0.004373115554436362,
+          "min": 0.08152173913043478,
+          "max": 0.09809264305177112
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.15170308815138728,
+          "sd": 0.005405449929917637,
+          "min": 0.14207650273224043,
+          "max": 0.15803814713896458
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.09031531572336923,
+          "sd": 0.004373115554436362,
+          "min": 0.08152173913043478,
+          "max": 0.09809264305177112
+        },
+        "ece_gate": {
+          "mean": 0.17617812073533198,
+          "sd": 0.006509630708201782,
+          "min": 0.16469125683060112,
+          "max": 0.1850081521739131
+        }
+      },
+      "ungoverned": {
+        "automation_rate": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "correct_resolution_rate": {
+          "mean": 0.5838971542687565,
+          "sd": 0.0029524905689352738,
+          "min": 0.5792349726775956,
+          "max": 0.5885558583106267
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.4161028457312435,
+          "sd": 0.0029524905689352495,
+          "min": 0.4114441416893733,
+          "max": 0.4207650273224044
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.4161028457312435,
+          "sd": 0.0029524905689352495,
+          "min": 0.4114441416893733,
+          "max": 0.4207650273224044
+        },
+        "ece_gate": {
+          "mean": 0.14350786435985902,
+          "sd": 0.005030275673439908,
+          "min": 0.13371720116618074,
+          "max": 0.1492991202346042
+        }
+      },
+      "naive_governed": {
+        "automation_rate": {
+          "mean": 0.3787157230180499,
+          "sd": 0.007550898813591955,
+          "min": 0.366120218579235,
+          "max": 0.3879781420765027
+        },
+        "correct_resolution_rate": {
+          "mean": 0.32605553864772285,
+          "sd": 0.0065822361757339135,
+          "min": 0.3114754098360656,
+          "max": 0.3333333333333333
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.052660184370327025,
+          "sd": 0.0031612577017517646,
+          "min": 0.04644808743169399,
+          "max": 0.05722070844686648
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.25784161562103364,
+          "sd": 0.005769679972256796,
+          "min": 0.24863387978142076,
+          "max": 0.2677595628415301
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.052660184370327025,
+          "sd": 0.0031612577017517646,
+          "min": 0.04644808743169399,
+          "max": 0.05722070844686648
+        },
+        "ece_gate": {
+          "mean": 0.14350786435985902,
+          "sd": 0.005030275673439908,
+          "min": 0.13371720116618074,
+          "max": 0.1492991202346042
+        }
+      },
+      "calibration_governed": {
+        "automation_rate": {
+          "mean": 0.1833808330548518,
+          "sd": 0.0657266349297625,
+          "min": 0.06267029972752043,
+          "max": 0.273224043715847
+        },
+        "correct_resolution_rate": {
+          "mean": 0.17109763019435426,
+          "sd": 0.05784510985196624,
+          "min": 0.06267029972752043,
+          "max": 0.2459016393442623
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.01228320286049757,
+          "sd": 0.008468355076958178,
+          "min": 0.0,
+          "max": 0.0273224043715847
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.41279952407440224,
+          "sd": 0.058521390315916265,
+          "min": 0.3333333333333333,
+          "max": 0.5231607629427792
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.01228320286049757,
+          "sd": 0.008468355076958178,
+          "min": 0.0,
+          "max": 0.0273224043715847
+        },
+        "ece_gate": {
+          "mean": 0.053046013515242664,
+          "sd": 0.016607808701519827,
+          "min": 0.030188661807580123,
+          "max": 0.08480917732558138
+        }
+      }
+    },
+    "test": {
+      "single_agent": {
+        "automation_rate": {
+          "mean": 0.5100214715839716,
+          "sd": 0.04018814325873456,
+          "min": 0.4375,
+          "max": 0.5692307692307692
+        },
+        "correct_resolution_rate": {
+          "mean": 0.42643304612054617,
+          "sd": 0.02726991244672198,
+          "min": 0.375,
+          "max": 0.453125
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.08358842546342546,
+          "sd": 0.02281149733289826,
+          "min": 0.046875,
+          "max": 0.12307692307692308
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.16422605172605173,
+          "sd": 0.02526431211815004,
+          "min": 0.140625,
+          "max": 0.22727272727272727
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.08358842546342546,
+          "sd": 0.02281149733289826,
+          "min": 0.046875,
+          "max": 0.12307692307692308
+        },
+        "ece_gate": {
+          "mean": 0.18768376103063603,
+          "sd": 0.04198697930481759,
+          "min": 0.12058461538461533,
+          "max": 0.253
+        }
+      },
+      "ungoverned": {
+        "automation_rate": {
+          "mean": 1.0,
+          "sd": 0.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "correct_resolution_rate": {
+          "mean": 0.58130661005661,
+          "sd": 0.01775730218373667,
+          "min": 0.5538461538461539,
+          "max": 0.6060606060606061
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.41869338994338995,
+          "sd": 0.017757302183736678,
+          "min": 0.3939393939393939,
+          "max": 0.4461538461538462
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.0,
+          "sd": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.41869338994338995,
+          "sd": 0.017757302183736678,
+          "min": 0.3939393939393939,
+          "max": 0.4461538461538462
+        },
+        "ece_gate": {
+          "mean": 0.16349446988336067,
+          "sd": 0.02579733214820399,
+          "min": 0.1161612903225807,
+          "max": 0.21285483870967747
+        }
+      },
+      "naive_governed": {
+        "automation_rate": {
+          "mean": 0.35981872294372297,
+          "sd": 0.031462285521705304,
+          "min": 0.296875,
+          "max": 0.40625
+        },
+        "correct_resolution_rate": {
+          "mean": 0.30236076423576425,
+          "sd": 0.039088451895390335,
+          "min": 0.25,
+          "max": 0.375
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.05745795870795871,
+          "sd": 0.021090338180768994,
+          "min": 0.030303030303030304,
+          "max": 0.09523809523809523
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.27894584582084586,
+          "sd": 0.033918425792999744,
+          "min": 0.203125,
+          "max": 0.3125
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.05745795870795871,
+          "sd": 0.021090338180768994,
+          "min": 0.030303030303030304,
+          "max": 0.09523809523809523
+        },
+        "ece_gate": {
+          "mean": 0.16349446988336067,
+          "sd": 0.02579733214820399,
+          "min": 0.1161612903225807,
+          "max": 0.21285483870967747
+        }
+      },
+      "calibration_governed": {
+        "automation_rate": {
+          "mean": 0.1875186272061272,
+          "sd": 0.07130843531199378,
+          "min": 0.046153846153846156,
+          "max": 0.26153846153846155
+        },
+        "correct_resolution_rate": {
+          "mean": 0.16744578338328336,
+          "sd": 0.05585152920790023,
+          "min": 0.046153846153846156,
+          "max": 0.21875
+        },
+        "unsafe_resolution_rate": {
+          "mean": 0.02007284382284382,
+          "sd": 0.019323570557280487,
+          "min": 0.0,
+          "max": 0.046153846153846156
+        },
+        "unnecessary_escalation_rate": {
+          "mean": 0.4138608266733267,
+          "sd": 0.05743857456396008,
+          "min": 0.3384615384615385,
+          "max": 0.5230769230769231
+        },
+        "mast_any_user_facing_rate": {
+          "mean": 0.02007284382284382,
+          "sd": 0.019323570557280487,
+          "min": 0.0,
+          "max": 0.046153846153846156
+        },
+        "ece_gate": {
+          "mean": 0.12032624920351513,
+          "sd": 0.020706740518941055,
+          "min": 0.08683118644067789,
+          "max": 0.14777661290322583
+        }
+      }
+    }
+  },
+  "guarantee_check": {
+    "alpha": 0.05,
+    "delta": 0.1,
+    "method": "ltt",
+    "splits": 10,
+    "splits_with_heldout_urr_above_alpha": 0,
+    "splits_with_test_urr_above_alpha": 0,
+    "splits_infeasible": 0,
+    "temperatures": [
+      0.4740998339808141,
+      0.434672191169188,
+      0.43352115786563516,
+      0.4759784807827915,
+      0.4453136324275656,
+      0.48513688102201236,
+      0.37320049227098157,
+      0.4041822428807789,
+      0.3621164870113202,
+      0.46632904235102773
+    ],
+    "thresholds": [
+      0.945,
+      0.925,
+      0.96,
+      0.91,
+      0.935,
+      0.915,
+      0.95,
+      0.935,
+      0.94,
+      0.91
+    ]
+  },
+  "sensitivity": [
+    {
+      "method": "ltt",
+      "alpha": 0.02,
+      "threshold": 1.01,
+      "feasible": false,
+      "automation_rate": 0.0,
+      "unsafe_resolution_rate": 0.0,
+      "correct_resolution_rate": 0.0
+    },
+    {
+      "method": "ltt",
+      "alpha": 0.05,
+      "threshold": 0.945,
+      "feasible": true,
+      "automation_rate": 0.08743169398907104,
+      "unsafe_resolution_rate": 0.00273224043715847,
+      "correct_resolution_rate": 0.08469945355191257
+    },
+    {
+      "method": "ltt",
+      "alpha": 0.1,
+      "threshold": 0.91,
+      "feasible": true,
+      "automation_rate": 0.2103825136612022,
+      "unsafe_resolution_rate": 0.01092896174863388,
+      "correct_resolution_rate": 0.1994535519125683
+    },
+    {
+      "method": "ltt",
+      "alpha": 0.15,
+      "threshold": 0.81,
+      "feasible": true,
+      "automation_rate": 0.4562841530054645,
+      "unsafe_resolution_rate": 0.07103825136612021,
+      "correct_resolution_rate": 0.38524590163934425
+    },
+    {
+      "method": "ltt",
+      "alpha": 0.2,
+      "threshold": 0.745,
+      "feasible": true,
+      "automation_rate": 0.6202185792349727,
+      "unsafe_resolution_rate": 0.11475409836065574,
+      "correct_resolution_rate": 0.505464480874317
+    },
+    {
+      "method": "crc",
+      "alpha": 0.02,
+      "threshold": 0.945,
+      "feasible": true,
+      "automation_rate": 0.08743169398907104,
+      "unsafe_resolution_rate": 0.00273224043715847,
+      "correct_resolution_rate": 0.08469945355191257
+    },
+    {
+      "method": "crc",
+      "alpha": 0.05,
+      "threshold": 0.91,
+      "feasible": true,
+      "automation_rate": 0.2103825136612022,
+      "unsafe_resolution_rate": 0.01092896174863388,
+      "correct_resolution_rate": 0.1994535519125683
+    },
+    {
+      "method": "crc",
+      "alpha": 0.1,
+      "threshold": 0.81,
+      "feasible": true,
+      "automation_rate": 0.4562841530054645,
+      "unsafe_resolution_rate": 0.07103825136612021,
+      "correct_resolution_rate": 0.38524590163934425
+    },
+    {
+      "method": "crc",
+      "alpha": 0.15,
+      "threshold": 0.745,
+      "feasible": true,
+      "automation_rate": 0.6202185792349727,
+      "unsafe_resolution_rate": 0.11475409836065574,
+      "correct_resolution_rate": 0.505464480874317
+    },
+    {
+      "method": "crc",
+      "alpha": 0.2,
+      "threshold": 0.58,
+      "feasible": true,
+      "automation_rate": 0.7404371584699454,
+      "unsafe_resolution_rate": 0.1885245901639344,
+      "correct_resolution_rate": 0.5519125683060109
+    }
+  ],
+  "replay_mismatches": 0,
+  "per_seed": {
+    "42": {
+      "profile": {
+        "temperature": 0.4740998339808141,
+        "threshold": 0.945,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.1378965517241379,
+          "ece_after": 0.08658532968243307,
+          "brier_before": 0.15003458620689653,
+          "brier_after": 0.1284336590458905,
+          "nll_before": 0.4793485671624757,
+          "nll_after": 0.42039823347550465,
+          "auroc": 0.7156673114119922,
+          "temperature_at_search_bound": false,
+          "n_answered": 58,
+          "calibration_coverage": 0.078125,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+        },
+        "split": {
+          "seed": 42,
+          "n_calibration": 64
+        },
+        "created_at": "2026-09-22T06:06:12+00:00",
+        "schema_version": 1,
+        "profile_id": "63b4fb12cbf4"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5355191256830601,
+          "correct_resolution_rate": 0.4426229508196721,
+          "unsafe_resolution_rate": 0.09289617486338798,
+          "unnecessary_escalation_rate": 0.14754098360655737,
+          "mast_any_user_facing_rate": 0.09289617486338798
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5819672131147541,
+          "unsafe_resolution_rate": 0.4180327868852459,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4180327868852459
+        },
+        "naive_governed": {
+          "automation_rate": 0.36885245901639346,
+          "correct_resolution_rate": 0.319672131147541,
+          "unsafe_resolution_rate": 0.04918032786885246,
+          "unnecessary_escalation_rate": 0.26229508196721313,
+          "mast_any_user_facing_rate": 0.04918032786885246
+        },
+        "calibration_governed": {
+          "automation_rate": 0.08743169398907104,
+          "correct_resolution_rate": 0.08469945355191257,
+          "unsafe_resolution_rate": 0.00273224043715847,
+          "unnecessary_escalation_rate": 0.4972677595628415,
+          "mast_any_user_facing_rate": 0.00273224043715847
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.5,
+          "correct_resolution_rate": 0.453125,
+          "unsafe_resolution_rate": 0.046875,
+          "unnecessary_escalation_rate": 0.140625,
+          "mast_any_user_facing_rate": 0.046875
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.578125,
+          "unsafe_resolution_rate": 0.421875,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.421875
+        },
+        "naive_governed": {
+          "automation_rate": 0.40625,
+          "correct_resolution_rate": 0.375,
+          "unsafe_resolution_rate": 0.03125,
+          "unnecessary_escalation_rate": 0.203125,
+          "mast_any_user_facing_rate": 0.03125
+        },
+        "calibration_governed": {
+          "automation_rate": 0.109375,
+          "correct_resolution_rate": 0.109375,
+          "unsafe_resolution_rate": 0.0,
+          "unnecessary_escalation_rate": 0.46875,
+          "mast_any_user_facing_rate": 0.0
+        }
+      }
+    },
+    "43": {
+      "profile": {
+        "temperature": 0.434672191169188,
+        "threshold": 0.925,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.19085,
+          "ece_after": 0.10189517849179669,
+          "brier_before": 0.14778025,
+          "brier_after": 0.12768265802805218,
+          "nll_before": 0.47203783586992304,
+          "nll_after": 0.39972087822302915,
+          "auroc": 0.8486024844720497,
+          "temperature_at_search_bound": false,
+          "n_answered": 60,
+          "calibration_coverage": 0.2698412698412698,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03588911950925004
+        },
+        "split": {
+          "seed": 43,
+          "n_calibration": 63
+        },
+        "created_at": "2026-09-22T06:06:23+00:00",
+        "schema_version": 1,
+        "profile_id": "4ea846bf4b78"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5340599455040872,
+          "correct_resolution_rate": 0.44686648501362397,
+          "unsafe_resolution_rate": 0.08719346049046321,
+          "unnecessary_escalation_rate": 0.14713896457765668,
+          "mast_any_user_facing_rate": 0.08719346049046321
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5858310626702997,
+          "unsafe_resolution_rate": 0.4141689373297003,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4141689373297003
+        },
+        "naive_governed": {
+          "automation_rate": 0.3787465940054496,
+          "correct_resolution_rate": 0.3242506811989101,
+          "unsafe_resolution_rate": 0.05449591280653951,
+          "unnecessary_escalation_rate": 0.2615803814713896,
+          "mast_any_user_facing_rate": 0.05449591280653951
+        },
+        "calibration_governed": {
+          "automation_rate": 0.20435967302452315,
+          "correct_resolution_rate": 0.1880108991825613,
+          "unsafe_resolution_rate": 0.01634877384196185,
+          "unnecessary_escalation_rate": 0.3978201634877384,
+          "mast_any_user_facing_rate": 0.01634877384196185
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.5384615384615384,
+          "correct_resolution_rate": 0.4461538461538462,
+          "unsafe_resolution_rate": 0.09230769230769231,
+          "unnecessary_escalation_rate": 0.15384615384615385,
+          "mast_any_user_facing_rate": 0.09230769230769231
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.6,
+          "unsafe_resolution_rate": 0.4,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4
+        },
+        "naive_governed": {
+          "automation_rate": 0.36923076923076925,
+          "correct_resolution_rate": 0.3076923076923077,
+          "unsafe_resolution_rate": 0.06153846153846154,
+          "unnecessary_escalation_rate": 0.2923076923076923,
+          "mast_any_user_facing_rate": 0.06153846153846154
+        },
+        "calibration_governed": {
+          "automation_rate": 0.23076923076923078,
+          "correct_resolution_rate": 0.2,
+          "unsafe_resolution_rate": 0.03076923076923077,
+          "unnecessary_escalation_rate": 0.4,
+          "mast_any_user_facing_rate": 0.03076923076923077
+        }
+      }
+    },
+    "44": {
+      "profile": {
+        "temperature": 0.43352115786563516,
+        "threshold": 0.96,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.17945614035087717,
+          "ece_after": 0.1428103226730134,
+          "brier_before": 0.14982419298245614,
+          "brier_after": 0.13151250270832218,
+          "nll_before": 0.47499436949609475,
+          "nll_after": 0.4055252612715764,
+          "auroc": 0.8374125874125874,
+          "temperature_at_search_bound": false,
+          "n_answered": 57,
+          "calibration_coverage": 0.06349206349206349,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03588911950925004
+        },
+        "split": {
+          "seed": 44,
+          "n_calibration": 63
+        },
+        "created_at": "2026-09-22T06:06:35+00:00",
+        "schema_version": 1,
+        "profile_id": "c9e164569dcf"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5367847411444142,
+          "correct_resolution_rate": 0.444141689373297,
+          "unsafe_resolution_rate": 0.09264305177111716,
+          "unnecessary_escalation_rate": 0.15258855585831063,
+          "mast_any_user_facing_rate": 0.09264305177111716
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5858310626702997,
+          "unsafe_resolution_rate": 0.4141689373297003,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4141689373297003
+        },
+        "naive_governed": {
+          "automation_rate": 0.3787465940054496,
+          "correct_resolution_rate": 0.32697547683923706,
+          "unsafe_resolution_rate": 0.051771117166212535,
+          "unnecessary_escalation_rate": 0.25885558583106266,
+          "mast_any_user_facing_rate": 0.051771117166212535
+        },
+        "calibration_governed": {
+          "automation_rate": 0.06267029972752043,
+          "correct_resolution_rate": 0.06267029972752043,
+          "unsafe_resolution_rate": 0.0,
+          "unnecessary_escalation_rate": 0.5231607629427792,
+          "mast_any_user_facing_rate": 0.0
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.5230769230769231,
+          "correct_resolution_rate": 0.4307692307692308,
+          "unsafe_resolution_rate": 0.09230769230769231,
+          "unnecessary_escalation_rate": 0.15384615384615385,
+          "mast_any_user_facing_rate": 0.09230769230769231
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5692307692307692,
+          "unsafe_resolution_rate": 0.4307692307692308,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4307692307692308
+        },
+        "naive_governed": {
+          "automation_rate": 0.3384615384615385,
+          "correct_resolution_rate": 0.26153846153846155,
+          "unsafe_resolution_rate": 0.07692307692307693,
+          "unnecessary_escalation_rate": 0.3076923076923077,
+          "mast_any_user_facing_rate": 0.07692307692307693
+        },
+        "calibration_governed": {
+          "automation_rate": 0.046153846153846156,
+          "correct_resolution_rate": 0.046153846153846156,
+          "unsafe_resolution_rate": 0.0,
+          "unnecessary_escalation_rate": 0.5230769230769231,
+          "mast_any_user_facing_rate": 0.0
+        }
+      }
+    },
+    "45": {
+      "profile": {
+        "temperature": 0.4759784807827915,
+        "threshold": 0.91,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.14040350877192984,
+          "ece_after": 0.04927133250944961,
+          "brier_before": 0.15654556140350878,
+          "brier_after": 0.13942465442450994,
+          "nll_before": 0.4921692794065028,
+          "nll_after": 0.4358434649338742,
+          "auroc": 0.7601851851851852,
+          "temperature_at_search_bound": false,
+          "n_answered": 57,
+          "calibration_coverage": 0.23809523809523808,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03588911950925004
+        },
+        "split": {
+          "seed": 45,
+          "n_calibration": 63
+        },
+        "created_at": "2026-09-22T06:06:47+00:00",
+        "schema_version": 1,
+        "profile_id": "4161bf851a25"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5449591280653951,
+          "correct_resolution_rate": 0.44686648501362397,
+          "unsafe_resolution_rate": 0.09809264305177112,
+          "unnecessary_escalation_rate": 0.14713896457765668,
+          "mast_any_user_facing_rate": 0.09809264305177112
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5885558583106267,
+          "unsafe_resolution_rate": 0.4114441416893733,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4114441416893733
+        },
+        "naive_governed": {
+          "automation_rate": 0.38419618528610355,
+          "correct_resolution_rate": 0.33242506811989103,
+          "unsafe_resolution_rate": 0.051771117166212535,
+          "unnecessary_escalation_rate": 0.2561307901907357,
+          "mast_any_user_facing_rate": 0.051771117166212535
+        },
+        "calibration_governed": {
+          "automation_rate": 0.2098092643051771,
+          "correct_resolution_rate": 0.19346049046321526,
+          "unsafe_resolution_rate": 0.01634877384196185,
+          "unnecessary_escalation_rate": 0.39509536784741145,
+          "mast_any_user_facing_rate": 0.01634877384196185
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.5384615384615384,
+          "correct_resolution_rate": 0.4307692307692308,
+          "unsafe_resolution_rate": 0.1076923076923077,
+          "unnecessary_escalation_rate": 0.15384615384615385,
+          "mast_any_user_facing_rate": 0.1076923076923077
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.6,
+          "unsafe_resolution_rate": 0.4,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4
+        },
+        "naive_governed": {
+          "automation_rate": 0.35384615384615387,
+          "correct_resolution_rate": 0.3076923076923077,
+          "unsafe_resolution_rate": 0.046153846153846156,
+          "unnecessary_escalation_rate": 0.2923076923076923,
+          "mast_any_user_facing_rate": 0.046153846153846156
+        },
+        "calibration_governed": {
+          "automation_rate": 0.24615384615384617,
+          "correct_resolution_rate": 0.2,
+          "unsafe_resolution_rate": 0.046153846153846156,
+          "unnecessary_escalation_rate": 0.4,
+          "mast_any_user_facing_rate": 0.046153846153846156
+        }
+      }
+    },
+    "46": {
+      "profile": {
+        "temperature": 0.4453136324275656,
+        "threshold": 0.935,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.1623559322033899,
+          "ece_after": 0.12509487790338072,
+          "brier_before": 0.15643306779661018,
+          "brier_after": 0.1380564600869145,
+          "nll_before": 0.4907135348319334,
+          "nll_after": 0.42822454822025624,
+          "auroc": 0.7845744680851063,
+          "temperature_at_search_bound": false,
+          "n_answered": 59,
+          "calibration_coverage": 0.203125,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+        },
+        "split": {
+          "seed": 46,
+          "n_calibration": 64
+        },
+        "created_at": "2026-09-22T06:06:59+00:00",
+        "schema_version": 1,
+        "profile_id": "440afb275cc9"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5409836065573771,
+          "correct_resolution_rate": 0.45081967213114754,
+          "unsafe_resolution_rate": 0.09016393442622951,
+          "unnecessary_escalation_rate": 0.14207650273224043,
+          "mast_any_user_facing_rate": 0.09016393442622951
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5819672131147541,
+          "unsafe_resolution_rate": 0.4180327868852459,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4180327868852459
+        },
+        "naive_governed": {
+          "automation_rate": 0.3879781420765027,
+          "correct_resolution_rate": 0.3333333333333333,
+          "unsafe_resolution_rate": 0.0546448087431694,
+          "unnecessary_escalation_rate": 0.24863387978142076,
+          "mast_any_user_facing_rate": 0.0546448087431694
+        },
+        "calibration_governed": {
+          "automation_rate": 0.15027322404371585,
+          "correct_resolution_rate": 0.1448087431693989,
+          "unsafe_resolution_rate": 0.00546448087431694,
+          "unnecessary_escalation_rate": 0.4371584699453552,
+          "mast_any_user_facing_rate": 0.00546448087431694
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.515625,
+          "correct_resolution_rate": 0.4375,
+          "unsafe_resolution_rate": 0.078125,
+          "unnecessary_escalation_rate": 0.171875,
+          "mast_any_user_facing_rate": 0.078125
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.59375,
+          "unsafe_resolution_rate": 0.40625,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.40625
+        },
+        "naive_governed": {
+          "automation_rate": 0.375,
+          "correct_resolution_rate": 0.3125,
+          "unsafe_resolution_rate": 0.0625,
+          "unnecessary_escalation_rate": 0.28125,
+          "mast_any_user_facing_rate": 0.0625
+        },
+        "calibration_governed": {
+          "automation_rate": 0.125,
+          "correct_resolution_rate": 0.125,
+          "unsafe_resolution_rate": 0.0,
+          "unnecessary_escalation_rate": 0.46875,
+          "mast_any_user_facing_rate": 0.0
+        }
+      }
+    },
+    "47": {
+      "profile": {
+        "temperature": 0.48513688102201236,
+        "threshold": 0.915,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.14628571428571435,
+          "ece_after": 0.11925678227569314,
+          "brier_before": 0.15237760714285714,
+          "brier_after": 0.1333791908235305,
+          "nll_before": 0.48420475119658424,
+          "nll_after": 0.42827585749685476,
+          "auroc": 0.7,
+          "temperature_at_search_bound": false,
+          "n_answered": 56,
+          "calibration_coverage": 0.1774193548387097,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03645729491658005
+        },
+        "split": {
+          "seed": 47,
+          "n_calibration": 62
+        },
+        "created_at": "2026-09-22T06:07:11+00:00",
+        "schema_version": 1,
+        "profile_id": "12b6f0f09a7d"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5217391304347826,
+          "correct_resolution_rate": 0.44021739130434784,
+          "unsafe_resolution_rate": 0.08152173913043478,
+          "unnecessary_escalation_rate": 0.15760869565217392,
+          "mast_any_user_facing_rate": 0.08152173913043478
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5869565217391305,
+          "unsafe_resolution_rate": 0.41304347826086957,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.41304347826086957
+        },
+        "naive_governed": {
+          "automation_rate": 0.3804347826086957,
+          "correct_resolution_rate": 0.328804347826087,
+          "unsafe_resolution_rate": 0.051630434782608696,
+          "unnecessary_escalation_rate": 0.25815217391304346,
+          "mast_any_user_facing_rate": 0.051630434782608696
+        },
+        "calibration_governed": {
+          "automation_rate": 0.1766304347826087,
+          "correct_resolution_rate": 0.17119565217391305,
+          "unsafe_resolution_rate": 0.005434782608695652,
+          "unnecessary_escalation_rate": 0.4157608695652174,
+          "mast_any_user_facing_rate": 0.005434782608695652
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.45454545454545453,
+          "correct_resolution_rate": 0.3787878787878788,
+          "unsafe_resolution_rate": 0.07575757575757576,
+          "unnecessary_escalation_rate": 0.22727272727272727,
+          "mast_any_user_facing_rate": 0.07575757575757576
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.6060606060606061,
+          "unsafe_resolution_rate": 0.3939393939393939,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.3939393939393939
+        },
+        "naive_governed": {
+          "automation_rate": 0.3484848484848485,
+          "correct_resolution_rate": 0.3181818181818182,
+          "unsafe_resolution_rate": 0.030303030303030304,
+          "unnecessary_escalation_rate": 0.2878787878787879,
+          "mast_any_user_facing_rate": 0.030303030303030304
+        },
+        "calibration_governed": {
+          "automation_rate": 0.19696969696969696,
+          "correct_resolution_rate": 0.18181818181818182,
+          "unsafe_resolution_rate": 0.015151515151515152,
+          "unnecessary_escalation_rate": 0.42424242424242425,
+          "mast_any_user_facing_rate": 0.015151515151515152
+        }
+      }
+    },
+    "48": {
+      "profile": {
+        "temperature": 0.37320049227098157,
+        "threshold": 0.95,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.171051724137931,
+          "ece_after": 0.12936786647281492,
+          "brier_before": 0.14601005172413795,
+          "brier_after": 0.1215229656847794,
+          "nll_before": 0.4689333576451115,
+          "nll_after": 0.37096573829361057,
+          "auroc": 0.8677536231884058,
+          "temperature_at_search_bound": false,
+          "n_answered": 58,
+          "calibration_coverage": 0.1746031746031746,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03588911950925004
+        },
+        "split": {
+          "seed": 48,
+          "n_calibration": 63
+        },
+        "created_at": "2026-09-22T06:07:23+00:00",
+        "schema_version": 1,
+        "profile_id": "cfa86c4bdc75"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5340599455040872,
+          "correct_resolution_rate": 0.44141689373297005,
+          "unsafe_resolution_rate": 0.09264305177111716,
+          "unnecessary_escalation_rate": 0.15803814713896458,
+          "mast_any_user_facing_rate": 0.09264305177111716
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5831062670299727,
+          "unsafe_resolution_rate": 0.41689373297002724,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.41689373297002724
+        },
+        "naive_governed": {
+          "automation_rate": 0.38419618528610355,
+          "correct_resolution_rate": 0.32697547683923706,
+          "unsafe_resolution_rate": 0.05722070844686648,
+          "unnecessary_escalation_rate": 0.2561307901907357,
+          "mast_any_user_facing_rate": 0.05722070844686648
+        },
+        "calibration_governed": {
+          "automation_rate": 0.22070844686648503,
+          "correct_resolution_rate": 0.20435967302452315,
+          "unsafe_resolution_rate": 0.01634877384196185,
+          "unnecessary_escalation_rate": 0.3787465940054496,
+          "mast_any_user_facing_rate": 0.01634877384196185
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.5692307692307692,
+          "correct_resolution_rate": 0.4461538461538462,
+          "unsafe_resolution_rate": 0.12307692307692308,
+          "unnecessary_escalation_rate": 0.15384615384615385,
+          "mast_any_user_facing_rate": 0.12307692307692308
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5538461538461539,
+          "unsafe_resolution_rate": 0.4461538461538462,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4461538461538462
+        },
+        "naive_governed": {
+          "automation_rate": 0.3384615384615385,
+          "correct_resolution_rate": 0.26153846153846155,
+          "unsafe_resolution_rate": 0.07692307692307693,
+          "unnecessary_escalation_rate": 0.2923076923076923,
+          "mast_any_user_facing_rate": 0.07692307692307693
+        },
+        "calibration_governed": {
+          "automation_rate": 0.26153846153846155,
+          "correct_resolution_rate": 0.2153846153846154,
+          "unsafe_resolution_rate": 0.046153846153846156,
+          "unnecessary_escalation_rate": 0.3384615384615385,
+          "mast_any_user_facing_rate": 0.046153846153846156
+        }
+      }
+    },
+    "49": {
+      "profile": {
+        "temperature": 0.4041822428807789,
+        "threshold": 0.935,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.18613114754098356,
+          "ece_after": 0.08572817227032017,
+          "brier_before": 0.15724075409836064,
+          "brier_after": 0.1323310029836762,
+          "nll_before": 0.4941342528556712,
+          "nll_after": 0.41843473949596205,
+          "auroc": 0.7836538461538461,
+          "temperature_at_search_bound": false,
+          "n_answered": 61,
+          "calibration_coverage": 0.15384615384615385,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.0348042862649295
+        },
+        "split": {
+          "seed": 49,
+          "n_calibration": 65
+        },
+        "created_at": "2026-09-22T06:07:35+00:00",
+        "schema_version": 1,
+        "profile_id": "bb61ac64c83f"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5287671232876713,
+          "correct_resolution_rate": 0.4410958904109589,
+          "unsafe_resolution_rate": 0.08767123287671233,
+          "unnecessary_escalation_rate": 0.15342465753424658,
+          "mast_any_user_facing_rate": 0.08767123287671233
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5808219178082191,
+          "unsafe_resolution_rate": 0.4191780821917808,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4191780821917808
+        },
+        "naive_governed": {
+          "automation_rate": 0.3863013698630137,
+          "correct_resolution_rate": 0.3315068493150685,
+          "unsafe_resolution_rate": 0.0547945205479452,
+          "unnecessary_escalation_rate": 0.2493150684931507,
+          "mast_any_user_facing_rate": 0.0547945205479452
+        },
+        "calibration_governed": {
+          "automation_rate": 0.22465753424657534,
+          "correct_resolution_rate": 0.20821917808219179,
+          "unsafe_resolution_rate": 0.01643835616438356,
+          "unnecessary_escalation_rate": 0.3726027397260274,
+          "mast_any_user_facing_rate": 0.01643835616438356
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.49206349206349204,
+          "correct_resolution_rate": 0.42857142857142855,
+          "unsafe_resolution_rate": 0.06349206349206349,
+          "unnecessary_escalation_rate": 0.1746031746031746,
+          "mast_any_user_facing_rate": 0.06349206349206349
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5714285714285714,
+          "unsafe_resolution_rate": 0.42857142857142855,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.42857142857142855
+        },
+        "naive_governed": {
+          "automation_rate": 0.38095238095238093,
+          "correct_resolution_rate": 0.2857142857142857,
+          "unsafe_resolution_rate": 0.09523809523809523,
+          "unnecessary_escalation_rate": 0.2857142857142857,
+          "mast_any_user_facing_rate": 0.09523809523809523
+        },
+        "calibration_governed": {
+          "automation_rate": 0.19047619047619047,
+          "correct_resolution_rate": 0.19047619047619047,
+          "unsafe_resolution_rate": 0.0,
+          "unnecessary_escalation_rate": 0.38095238095238093,
+          "mast_any_user_facing_rate": 0.0
+        }
+      }
+    },
+    "50": {
+      "profile": {
+        "temperature": 0.3621164870113202,
+        "threshold": 0.94,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.216135593220339,
+          "ece_after": 0.0739833789907856,
+          "brier_before": 0.12569508474576271,
+          "brier_after": 0.09168296720890735,
+          "nll_before": 0.424969585170161,
+          "nll_after": 0.3068337985899015,
+          "auroc": 0.8806122448979592,
+          "temperature_at_search_bound": false,
+          "n_answered": 59,
+          "calibration_coverage": 0.34375,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+        },
+        "split": {
+          "seed": 50,
+          "n_calibration": 64
+        },
+        "created_at": "2026-09-22T06:07:47+00:00",
+        "schema_version": 1,
+        "profile_id": "115aebc8a2e9"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5245901639344263,
+          "correct_resolution_rate": 0.4344262295081967,
+          "unsafe_resolution_rate": 0.09016393442622951,
+          "unnecessary_escalation_rate": 0.1557377049180328,
+          "mast_any_user_facing_rate": 0.09016393442622951
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5792349726775956,
+          "unsafe_resolution_rate": 0.4207650273224044,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4207650273224044
+        },
+        "naive_governed": {
+          "automation_rate": 0.366120218579235,
+          "correct_resolution_rate": 0.3114754098360656,
+          "unsafe_resolution_rate": 0.0546448087431694,
+          "unnecessary_escalation_rate": 0.2677595628415301,
+          "mast_any_user_facing_rate": 0.0546448087431694
+        },
+        "calibration_governed": {
+          "automation_rate": 0.273224043715847,
+          "correct_resolution_rate": 0.2459016393442623,
+          "unsafe_resolution_rate": 0.0273224043715847,
+          "unnecessary_escalation_rate": 0.3333333333333333,
+          "mast_any_user_facing_rate": 0.0273224043715847
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.4375,
+          "correct_resolution_rate": 0.375,
+          "unsafe_resolution_rate": 0.0625,
+          "unnecessary_escalation_rate": 0.171875,
+          "mast_any_user_facing_rate": 0.0625
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5625,
+          "unsafe_resolution_rate": 0.4375,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.4375
+        },
+        "naive_governed": {
+          "automation_rate": 0.296875,
+          "correct_resolution_rate": 0.25,
+          "unsafe_resolution_rate": 0.046875,
+          "unnecessary_escalation_rate": 0.3125,
+          "mast_any_user_facing_rate": 0.046875
+        },
+        "calibration_governed": {
+          "automation_rate": 0.21875,
+          "correct_resolution_rate": 0.1875,
+          "unsafe_resolution_rate": 0.03125,
+          "unnecessary_escalation_rate": 0.375,
+          "mast_any_user_facing_rate": 0.03125
+        }
+      }
+    },
+    "51": {
+      "profile": {
+        "temperature": 0.46632904235102773,
+        "threshold": 0.91,
+        "alpha": 0.05,
+        "delta": 0.1,
+        "feasible": true,
+        "fingerprint": {
+          "provider": "mock",
+          "model": "deterministic-rules-v1",
+          "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+          "intake_prompt": "intake-v1",
+          "resolution_prompt": "resolution-v1",
+          "kb_hash": "dcc438e3697a49c1",
+          "top_k": 4,
+          "min_relevance": 0.25
+        },
+        "method": "temperature-scaling",
+        "threshold_method": "ltt",
+        "metrics": {
+          "ece_before": 0.15568852459016397,
+          "ece_after": 0.04484192101475192,
+          "brier_before": 0.15270595081967214,
+          "brier_after": 0.132783899060499,
+          "nll_before": 0.4845325770114147,
+          "nll_after": 0.4235170021756695,
+          "auroc": 0.813768115942029,
+          "temperature_at_search_bound": false,
+          "n_answered": 61,
+          "calibration_coverage": 0.15625,
+          "calibration_unsafe_rate": 0.0,
+          "calibration_unsafe_rate_upper_bound": 0.03533838008880079
+        },
+        "split": {
+          "seed": 51,
+          "n_calibration": 64
+        },
+        "created_at": "2026-09-22T06:07:59+00:00",
+        "schema_version": 1,
+        "profile_id": "069b32b877e8"
+      },
+      "heldout": {
+        "single_agent": {
+          "automation_rate": 0.5300546448087432,
+          "correct_resolution_rate": 0.43989071038251365,
+          "unsafe_resolution_rate": 0.09016393442622951,
+          "unnecessary_escalation_rate": 0.1557377049180328,
+          "mast_any_user_facing_rate": 0.09016393442622951
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.5846994535519126,
+          "unsafe_resolution_rate": 0.41530054644808745,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.41530054644808745
+        },
+        "naive_governed": {
+          "automation_rate": 0.37158469945355194,
+          "correct_resolution_rate": 0.3251366120218579,
+          "unsafe_resolution_rate": 0.04644808743169399,
+          "unnecessary_escalation_rate": 0.25956284153005466,
+          "mast_any_user_facing_rate": 0.04644808743169399
+        },
+        "calibration_governed": {
+          "automation_rate": 0.22404371584699453,
+          "correct_resolution_rate": 0.20765027322404372,
+          "unsafe_resolution_rate": 0.01639344262295082,
+          "unnecessary_escalation_rate": 0.3770491803278688,
+          "mast_any_user_facing_rate": 0.01639344262295082
+        }
+      },
+      "test": {
+        "single_agent": {
+          "automation_rate": 0.53125,
+          "correct_resolution_rate": 0.4375,
+          "unsafe_resolution_rate": 0.09375,
+          "unnecessary_escalation_rate": 0.140625,
+          "mast_any_user_facing_rate": 0.09375
+        },
+        "ungoverned": {
+          "automation_rate": 1.0,
+          "correct_resolution_rate": 0.578125,
+          "unsafe_resolution_rate": 0.421875,
+          "unnecessary_escalation_rate": 0.0,
+          "mast_any_user_facing_rate": 0.421875
+        },
+        "naive_governed": {
+          "automation_rate": 0.390625,
+          "correct_resolution_rate": 0.34375,
+          "unsafe_resolution_rate": 0.046875,
+          "unnecessary_escalation_rate": 0.234375,
+          "mast_any_user_facing_rate": 0.046875
+        },
+        "calibration_governed": {
+          "automation_rate": 0.25,
+          "correct_resolution_rate": 0.21875,
+          "unsafe_resolution_rate": 0.03125,
+          "unnecessary_escalation_rate": 0.359375,
+          "mast_any_user_facing_rate": 0.03125
+        }
+      }
+    }
+  },
+  "runtime_seconds": 169.791683294
+}

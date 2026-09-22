@@ -57,14 +57,26 @@ def _tokenize(text: str) -> list[str]:
 
 
 class SentenceTransformerEmbedder:
-    """Local transformer embeddings (default: all-MiniLM-L6-v2, 384 dimensions)."""
+    """Local transformer embeddings (default: all-MiniLM-L6-v2, 384 dimensions).
 
-    def __init__(self, model_name: str = "sentence-transformers/all-MiniLM-L6-v2") -> None:
+    ``model_path`` optionally points at a local copy of the same model (for an
+    air-gapped machine). The embedder's ``name`` stays the model identity, so a
+    calibration profile fitted with the downloaded model still matches.
+    """
+
+    def __init__(
+        self,
+        model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+        model_path: str | None = None,
+    ) -> None:
         from sentence_transformers import SentenceTransformer  # imported lazily
 
-        self._model = SentenceTransformer(model_name)
+        self._model = SentenceTransformer(str(model_path or model_name), device="cpu")
         self.name = model_name
-        self.dimension = int(self._model.get_sentence_embedding_dimension())
+        dimension = getattr(self._model, "get_embedding_dimension", None) or getattr(
+            self._model, "get_sentence_embedding_dimension"
+        )
+        self.dimension = int(dimension())
 
     def embed(self, texts: list[str]) -> list[list[float]]:
         vectors = self._model.encode(
@@ -177,14 +189,25 @@ class TfidfEmbedder:
         return True
 
 
-def get_embedder(model_name: str | None = None) -> Embedder:
-    """Return the transformer embedder, or the TF-IDF fallback if unavailable."""
+def get_embedder(model_name: str | None = None, backend: str | None = None) -> Embedder:
+    """Return the configured embedder.
+
+    ``backend`` is ``"auto"`` (transformer, else the TF-IDF fallback),
+    ``"minilm"`` (transformer only; raises if it cannot load) or ``"tfidf"``.
+    """
     from ..config import SETTINGS
 
-    model_name = model_name or SETTINGS.retrieval.embedding_model
+    settings = SETTINGS.retrieval
+    model_name = model_name or settings.embedding_model
+    backend = (backend or settings.embedder_backend or "auto").strip().lower()
+
+    if backend == "tfidf":
+        return TfidfEmbedder()
     try:
-        return SentenceTransformerEmbedder(model_name)
+        return SentenceTransformerEmbedder(model_name, settings.embedding_model_path or None)
     except Exception as exc:  # pragma: no cover - depends on the environment
+        if backend in ("minilm", "transformer", "sentence-transformers"):
+            raise RuntimeError(f"The transformer embedder could not be loaded: {exc}") from exc
         logger.warning(
             "sentence-transformers unavailable (%s); using the TF-IDF fallback. "
             "Retrieval quality will be lower than the transformer model.",

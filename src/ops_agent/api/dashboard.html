@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPS-AGENT Dashboard</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f9f9f7; --surface: #fcfcfb; --surface-2: #f1f0ec;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --rule: #e1e0d9; --axis: #c3c2b7;
+    --accent: #2a78d6; --good: #0ca30c; --good-text: #006300; --warn: #fab219; --bad: #d03b3b;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --bg: #0d0d0d; --surface: #1a1a19; --surface-2: #242422;
+      --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+      --rule: #2c2c2a; --axis: #383835; --accent: #3987e5; --good-text: #0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0d0d0d; --surface: #1a1a19; --surface-2: #242422;
+    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --rule: #2c2c2a; --axis: #383835; --accent: #3987e5; --good-text: #0ca30c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--sans); }
+  header { padding: 20px 16px 12px; border-bottom: 1px solid var(--rule); background: var(--surface); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  header .wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; padding: 0; }
+  h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  h2 { font-size: 15px; margin: 0 0 12px; font-weight: 600; }
+  .sub { color: var(--ink-2); font-size: 13px; }
+  .badge { font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; background: var(--surface-2); color: var(--ink-2); }
+  .badge.cal { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+  main.wrap { padding-top: 20px; padding-bottom: 48px; display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { main.wrap { grid-template-columns: 1.15fr 1fr; } .span { grid-column: 1 / -1; } }
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px; min-width: 0; }
+  textarea { width: 100%; min-height: 92px; resize: vertical; font: 14px var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--axis); border-radius: 6px; padding: 10px; }
+  button { font: 500 14px var(--sans); border: 0; border-radius: 6px; padding: 9px 16px; background: var(--accent); color: #fff; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--axis); }
+  button:disabled { opacity: .55; cursor: progress; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+  .examples button { background: var(--surface-2); color: var(--ink-2); font-size: 12px; padding: 5px 10px; }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0 14px; }
+  .node { font: 500 12px var(--mono); padding: 5px 9px; border-radius: 4px; border: 1px solid var(--axis); color: var(--muted); }
+  .node.on { color: var(--ink); border-color: var(--ink-2); background: var(--surface-2); }
+  .node.deliver.on { border-color: var(--good); color: var(--good-text); }
+  .node.escalate.on { border-color: var(--bad); color: var(--bad); }
+  .arrow { color: var(--muted); font-size: 12px; }
+  .verdict { font-weight: 600; font-size: 16px; margin: 0 0 8px; }
+  .verdict.ok { color: var(--good-text); } .verdict.esc { color: var(--bad); }
+  .checks { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; gap: 4px; }
+  .checks li { font: 13px var(--mono); display: flex; gap: 8px; }
+  .checks .mark { width: 16px; flex: none; text-align: center; }
+  .pass { color: var(--good-text); } .fail { color: var(--bad); }
+  .meter { position: relative; height: 10px; background: var(--surface-2); border-radius: 5px; margin: 6px 0 2px; }
+  .meter .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 5px; background: var(--accent); }
+  .meter .thr { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+  .meter-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-2); }
+  pre.response { white-space: pre-wrap; font: 12.5px/1.55 var(--mono); background: var(--surface-2); border-radius: 6px; padding: 12px; margin: 12px 0 0; max-height: 320px; overflow: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 8px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .scroll { overflow-x: auto; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .tile { border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; }
+  .tile .k { font-size: 12px; color: var(--ink-2); }
+  .tile .v { font-size: 22px; font-weight: 600; }
+  .muted { color: var(--muted); font-size: 12.5px; }
+  .empty { color: var(--muted); font-size: 13px; padding: 8px 0; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div>
+      <h1>OPS-AGENT</h1>
+      <div class="sub">Multi-agent IT incident resolution with deterministic, calibrated governance</div>
+    </div>
+    <div class="row" style="margin:0">
+      <span class="badge" id="mode-badge">mode: …</span>
+      <span class="badge" id="audit-badge">audit: …</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <h2>Submit a ticket</h2>
+    <label for="ticket" class="muted">Write it the way an employee would.</label>
+    <textarea id="ticket" maxlength="5000">User cannot connect to the VPN, error code 809</textarea>
+    <div class="row">
+      <button id="submit">Run through the pipeline</button>
+      <span class="muted" id="submit-status"></span>
+    </div>
+    <div class="row examples" id="examples"></div>
+  </section>
+
+  <section class="card" id="result-card">
+    <h2>Decision</h2>
+    <div id="result" class="empty">No ticket run yet in this session.</div>
+  </section>
+
+  <section class="card">
+    <h2>Governance in force</h2>
+    <div id="calibration" class="empty">Loading…</div>
+  </section>
+
+  <section class="card">
+    <h2>Audit trail</h2>
+    <div class="tiles" id="audit-tiles"></div>
+    <div class="row"><button class="ghost" id="verify">Verify hash chain</button><span class="muted" id="verify-status"></span></div>
+  </section>
+
+  <section class="card span">
+    <h2>Escalation history</h2>
+    <div class="scroll"><table id="history"><thead><tr>
+      <th>Time (UTC)</th><th>Ticket</th><th>Category / priority</th><th>Verdict</th>
+      <th class="num">Raw conf.</th><th class="num">Calibrated</th><th>Outcome</th>
+    </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="card span">
+    <h2>Latest comparative evaluation (held-out tickets)</h2>
+    <div id="evaluation" class="empty">Loading…</div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
+const pct = (v) => v === null || v === undefined ? "n/a" : (100 * v).toFixed(1) + "%";
+const num = (v) => v === null || v === undefined ? "–" : Number(v).toFixed(2);
+const NODES = ["intake", "retrieval", "resolution", "calibration", "governance", "deliver", "escalate"];
+const LABELS = { single_agent: "V1 Single agent", ungoverned: "V2 Ungoverned", naive_governed: "V3 Naively governed", calibration_governed: "V4 Calibration governed" };
+const EXAMPLES = [
+  "User cannot connect to the VPN, error code 809",
+  "Outlook hangs on loading profile and will not open.",
+  "I think I received a phishing email and I clicked the link in it.",
+  "The entire office cannot reach the internet, nobody can work.",
+  "It's broken.",
+];
+
+async function getJSON(url, options) {
+  const response = await fetch(url, options);
+  if (!response.ok) throw new Error(`${response.status} ${await response.text()}`);
+  return response.json();
+}
+
+function meter(label, value, threshold) {
+  const box = el("div");
+  const head = el("div", "meter-label");
+  const three = (x) => (x === null || x === undefined ? "–" : Number(x).toFixed(3));
+  head.append(el("span", "", label), el("span", "", `${three(value)}  (threshold ${three(threshold)})`));
+  const bar = el("div", "meter");
+  const fill = el("div", "fill"); fill.style.width = `${Math.max(0, Math.min(1, value || 0)) * 100}%`;
+  const thr = el("div", "thr"); thr.style.left = `calc(${Math.min(1, threshold || 0) * 100}% - 1px)`;
+  bar.append(fill, thr); box.append(head, bar);
+  return box;
+}
+
+function renderResult(r) {
+  const box = $("result"); box.className = ""; box.replaceChildren();
+  const flow = el("div", "flow");
+  NODES.forEach((name, i) => {
+    if (name === "calibration" && !r.path.includes("calibration")) return;
+    const node = el("span", `node ${name}${r.path.includes(name) ? " on" : ""}`, name);
+    flow.append(node);
+    if (i < NODES.length - 2 && name !== "escalate") flow.append(el("span", "arrow", name === "deliver" ? "|" : "→"));
+  });
+  const ok = r.outcome === "resolved";
+  const verdict = el("p", `verdict ${ok ? "ok" : "esc"}`, ok ? "✓ Resolved autonomously" : "⚠ Escalated to a human engineer");
+  const meta = el("div", "muted", `${r.ticket_id} · ${r.category} / ${r.priority} · ${r.governance_verdict}`);
+  const checks = el("ul", "checks");
+  Object.entries(r.policy_checks).forEach(([name, passed]) => {
+    const li = el("li");
+    li.append(el("span", `mark ${passed ? "pass" : "fail"}`, passed ? "✓" : "✗"), el("span", "", name));
+    checks.append(li);
+  });
+  box.append(flow, verdict, meta, checks);
+  if (r.confidence_basis === "calibrated") {
+    box.append(meter("Calibrated confidence (judged by G3)", r.calibrated_confidence, r.confidence_threshold_applied));
+    const raw = el("div", "muted", `Raw self-reported confidence ${num(r.confidence_score)}`); box.append(raw);
+  } else if (r.confidence_threshold_applied !== null) {
+    box.append(meter("Raw confidence (judged by G3)", r.confidence_score, r.confidence_threshold_applied));
+  }
+  if (r.governance_reasons.length) {
+    const reasons = el("ul", "checks");
+    r.governance_reasons.forEach((reason) => reasons.append(el("li", "", "• " + reason)));
+    box.append(reasons);
+  }
+  box.append(el("pre", "response", r.final_response));
+}
+
+async function submit() {
+  const text = $("ticket").value.trim();
+  if (!text) return;
+  $("submit").disabled = true; $("submit-status").textContent = "Running…";
+  try {
+    const result = await getJSON("/api/tickets", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+    renderResult(result);
+    $("submit-status").textContent = result.run_id ? `Recorded as ${result.run_id}` : "";
+    await Promise.all([loadHistory(), loadCalibration()]);
+  } catch (error) {
+    $("submit-status").textContent = "Failed: " + error.message;
+  } finally { $("submit").disabled = false; }
+}
+
+async function loadCalibration() {
+  const box = $("calibration");
+  try {
+    const c = await getJSON("/api/calibration");
+    box.className = ""; box.replaceChildren();
+    $("mode-badge").textContent = `mode: ${c.mode}`;
+    $("mode-badge").className = "badge" + (c.mode === "calibrated" ? " cal" : "");
+    const tiles = el("div", "tiles");
+    const tile = (k, v) => { const t = el("div", "tile"); t.append(el("div", "k", k), el("div", "v", v)); return t; };
+    if (c.profile) {
+      tiles.append(tile("Temperature T", c.profile.temperature.toFixed(3)),
+                   tile("G3 threshold (calibrated)", c.profile.threshold.toFixed(3)),
+                   tile("Risk target α / δ", `${pct(c.profile.alpha)} / ${pct(c.profile.delta)}`),
+                   tile("Profile", c.profile.profile_id));
+    } else {
+      tiles.append(tile("G3 threshold (raw)", num(c.naive_threshold)));
+    }
+    box.append(tiles, el("p", "muted", c.note));
+  } catch (error) { box.textContent = "Unavailable: " + error.message; }
+}
+
+async function loadHistory() {
+  const body = $("history").querySelector("tbody");
+  try {
+    const data = await getJSON("/api/tickets?limit=50");
+    $("audit-badge").textContent = data.audit_enabled ? "audit: on" : "audit: off";
+    const tiles = $("audit-tiles"); tiles.replaceChildren();
+    const s = data.stats || {};
+    [["Runs recorded", s.runs ?? 0], ["Escalated", s.escalated ?? 0], ["Resolved", s.resolved ?? 0]].forEach(([k, v]) => {
+      const t = el("div", "tile"); t.append(el("div", "k", k), el("div", "v", String(v))); tiles.append(t);
+    });
+    body.replaceChildren();
+    if (!data.runs.length) { const tr = el("tr"); const td = el("td", "empty", "No runs recorded yet."); td.colSpan = 7; tr.append(td); body.append(tr); return; }
+    data.runs.forEach((run) => {
+      const tr = el("tr");
+      const cells = [
+        (run.recorded_at || "").replace("T", " ").slice(0, 19),
+        `${run.ticket_id} — ${(run.raw_text || "").slice(0, 60)}`,
+        `${run.category} / ${run.priority}`,
+        run.governance_verdict || "",
+        num(run.confidence_score),
+        run.confidence_is_calibrated ? num(run.calibrated_confidence) : "–",
+        run.outcome || "",
+      ];
+      cells.forEach((value, i) => tr.append(el("td", i === 4 || i === 5 ? "num" : (i === 6 ? (value === "resolved" ? "pass" : "fail") : ""), value)));
+      body.append(tr);
+    });
+  } catch (error) { body.replaceChildren(); }
+}
+
+async function verify() {
+  $("verify-status").textContent = "Checking…";
+  try {
+    const v = await getJSON("/api/audit/verify");
+    $("verify-status").textContent = v.ok === null ? v.detail : (v.ok ? `✓ Intact — ${v.rows_checked} rows` : `✗ Broken at row ${v.first_bad_seq}: ${v.detail}`);
+  } catch (error) { $("verify-status").textContent = "Failed: " + error.message; }
+}
+
+async function loadEvaluation() {
+  const box = $("evaluation");
+  try {
+    const data = await getJSON("/api/evaluation");
+    box.className = ""; box.replaceChildren();
+    if (!data.evaluations.length) { box.className = "empty"; box.textContent = "No evaluation has been run yet (python scripts/run_evaluation.py)."; return; }
+    data.evaluations.forEach((ev) => {
+      box.append(el("p", "muted", `${ev.configuration} · ${ev.embedder} · α = ${ev.alpha} · n = ${ev.n_heldout} · ${ev.generated_at}`));
+      const table = el("table"); const head = el("tr");
+      ["Variant", "Automation", "Correct autonomous", "Unsafe resolution rate", "Unnecessary escalation", "User-facing MAST"].forEach((h, i) => head.append(el("th", i ? "num" : "", h)));
+      const thead = el("thead"); thead.append(head); const tbody = el("tbody");
+      Object.entries(ev.variants).forEach(([variant, m]) => {
+        const tr = el("tr");
+        [LABELS[variant] || variant, pct(m.automation_rate), pct(m.correct_resolution_rate), pct(m.unsafe_resolution_rate), pct(m.unnecessary_escalation_rate), pct(m.mast_any_user_facing_rate)]
+          .forEach((v, i) => tr.append(el("td", i ? "num" : "", v)));
+        tbody.append(tr);
+      });
+      table.append(thead, tbody);
+      const wrap = el("div", "scroll"); wrap.append(table); box.append(wrap);
+    });
+  } catch (error) { box.textContent = "Unavailable: " + error.message; }
+}
+
+EXAMPLES.forEach((text) => { const b = el("button", "", text.length > 38 ? text.slice(0, 36) + "…" : text); b.title = text; b.onclick = () => { $("ticket").value = text; }; $("examples").append(b); });
+$("submit").onclick = submit;
+$("verify").onclick = verify;
+loadCalibration(); loadHistory(); loadEvaluation();
+</script>
+</body>
+</html>

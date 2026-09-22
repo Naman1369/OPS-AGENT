@@ -1,0 +1,15 @@
+# ---- OPS-AGENT :: container runtime (API only) ----
+# The image uses the TF-IDF embedder by default so it stays small; build with
+# --build-arg WITH_TRANSFORMERS=true to add sentence-transformers (MiniLM).
+langgraph>=0.2.60
+langchain-core>=0.3.0
+chromadb>=0.5.5
+google-genai>=1.0.0
+requests>=2.32.0
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+python-dotenv>=1.0.1
+pydantic>=2.7.0
+numpy>=1.26.0
+scipy>=1.11.0
+matplotlib>=3.8.0

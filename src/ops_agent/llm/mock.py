@@ -119,6 +119,8 @@ class MockProvider(LLMProvider):
             payload = self._intake(prompt)
         elif hint == "resolution":
             payload = self._resolution(prompt)
+        elif hint == "single_agent":
+            payload = self._single_agent(prompt)
         else:
             payload = {"response": "MockProvider has no behaviour registered for this task."}
 
@@ -131,6 +133,8 @@ class MockProvider(LLMProvider):
     @staticmethod
     def _infer_task(system: str, prompt: str) -> str:
         blob = f"{system}\n{prompt}".lower()
+        if "it support assistant" in blob:
+            return "single_agent"
         if "intake agent" in blob or "triage" in blob:
             return "intake"
         if "resolution agent" in blob or "<context>" in blob:
@@ -286,15 +290,52 @@ class MockProvider(LLMProvider):
         raw_confidence = 0.15 + (0.65 * top_score) + (0.20 * breadth)
         raw_confidence = round(max(0.0, min(0.99, raw_confidence)), 3)
 
+        # Cite exactly the documents the steps were drawn from, as the
+        # Resolution prompt requires ("every doc_id you actually used - not every
+        # doc_id you were given"). Iteration 1 of this provider cited every
+        # retrieved document; the formative MAST analysis flagged that as a
+        # reasoning-action mismatch (FM-2.6) and it was corrected before the
+        # comparative evaluation. See reports/evaluation/formative_iteration1_mast.json.
+        used: list[str] = []
+        for step in steps:
+            for doc_id in re.findall(r"\[([^\]]+)\]\s*$", step):
+                if doc_id not in used:
+                    used.append(doc_id)
+
         return {
             "solution": solution,
             "steps": steps,
-            "citations": [doc["doc_id"] for doc in docs],
+            "citations": used or [doc["doc_id"] for doc in docs],
             "rationale": (
                 f"Top evidence '{docs[0]['doc_id']}' matched at similarity {top_score:.2f}; "
                 f"{len(docs)} supporting article(s) were consistent with the reported symptoms."
             ),
             "confidence": raw_confidence,
+        }
+
+    # ------------------------------------------------------------------ #
+    # Single-agent baseline behaviour (evaluation variant V1)
+    # ------------------------------------------------------------------ #
+
+    def _single_agent(self, prompt: str) -> dict[str, Any]:
+        """Triage and answer in one pass, as a monolithic assistant would.
+
+        Reuses the same deterministic triage and answering rules as the
+        multi-agent path, so the V1-versus-V3 comparison measures the
+        architecture (no separate retrieval query, no relevance filter, no
+        independent gate), not a difference in the stand-in model.
+        """
+        ticket = self._block(_TICKET_RE, prompt) or ""
+        triage = self._intake(f"<TICKET>{ticket}</TICKET>")
+        answer = self._resolution(prompt)
+        return {
+            "category": triage["category"],
+            "priority": triage["priority"],
+            "solution": answer["solution"],
+            "steps": answer["steps"],
+            "citations": answer["citations"],
+            "rationale": answer["rationale"],
+            "confidence": answer["confidence"],
         }
 
     @staticmethod

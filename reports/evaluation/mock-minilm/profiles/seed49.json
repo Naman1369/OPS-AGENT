@@ -1,0 +1,40 @@
+{
+  "temperature": 0.4041822428807789,
+  "threshold": 0.935,
+  "alpha": 0.05,
+  "delta": 0.1,
+  "feasible": true,
+  "fingerprint": {
+    "provider": "mock",
+    "model": "deterministic-rules-v1",
+    "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+    "intake_prompt": "intake-v1",
+    "resolution_prompt": "resolution-v1",
+    "kb_hash": "dcc438e3697a49c1",
+    "top_k": 4,
+    "min_relevance": 0.25
+  },
+  "method": "temperature-scaling",
+  "threshold_method": "ltt",
+  "metrics": {
+    "ece_before": 0.18613114754098356,
+    "ece_after": 0.08572817227032017,
+    "brier_before": 0.15724075409836064,
+    "brier_after": 0.1323310029836762,
+    "nll_before": 0.4941342528556712,
+    "nll_after": 0.41843473949596205,
+    "auroc": 0.7836538461538461,
+    "temperature_at_search_bound": false,
+    "n_answered": 61,
+    "calibration_coverage": 0.15384615384615385,
+    "calibration_unsafe_rate": 0.0,
+    "calibration_unsafe_rate_upper_bound": 0.0348042862649295
+  },
+  "split": {
+    "seed": 49,
+    "n_calibration": 65
+  },
+  "created_at": "2026-09-22T06:07:35+00:00",
+  "schema_version": 1,
+  "profile_id": "bb61ac64c83f"
+}

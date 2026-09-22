@@ -6,10 +6,20 @@ collection, so the suite needs no API key, no network and no pre-built index.
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
 import pytest
+
+# Hermetic by construction: settings are read when ops_agent is imported, so
+# these must be set first. A developer's .env (a Gemini key, a calibration
+# profile) must never change what the unit suite exercises. Tests that need
+# calibrated governance or another provider pass them in explicitly.
+os.environ["OPS_LLM_PROVIDER"] = "mock"
+os.environ["OPS_GOVERNANCE_MODE"] = "raw"
+os.environ["OPS_EMBEDDER"] = "tfidf"
+os.environ["OPS_AUDIT_ENABLED"] = "false"
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))

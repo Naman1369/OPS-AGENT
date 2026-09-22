@@ -55,6 +55,15 @@ def test_similarity_search_returns_ranked_scored_documents(store):
     assert [doc["rank"] for doc in results] == list(range(1, len(results) + 1))
 
 
+def test_tied_results_are_broken_deterministically(store, kb_documents):
+    """A query sharing no vocabulary ties every article at similarity 0; the order
+    must then come from the doc id, not from Chroma's process-dependent tie order."""
+    results = store.similarity_search("zxqv blorf quux", top_k=4)
+    expected = sorted(doc.doc_id for doc in kb_documents)[:4]
+    assert [doc["doc_id"] for doc in results] == expected
+    assert all(doc["score"] == 0.0 for doc in results)
+
+
 def test_ingestion_is_idempotent(store, kb_documents):
     before = store.count()
     store.add_documents(kb_documents)
@@ -63,3 +72,27 @@ def test_ingestion_is_idempotent(store, kb_documents):
 
 def test_empty_query_returns_nothing(store):
     assert store.similarity_search("   ", top_k=3) == []
+
+
+def test_a_stale_persisted_index_is_detected_and_rebuilt(tmp_path, kb_documents):
+    """An index built with one embedder must never be queried with another."""
+    import pytest
+
+    from ops_agent.knowledge.vector_store import VectorStore
+
+    first = VectorStore("kb_stale_test", TfidfEmbedder(), persist_dir=tmp_path)
+    first.add_documents(kb_documents)
+
+    class OtherEmbedder:
+        name, dimension = "other-model", 8
+
+        def embed(self, texts):
+            return [[0.1] * 8 for _ in texts]
+
+        def embed_one(self, text):
+            return [0.1] * 8
+
+    with pytest.raises(RuntimeError, match="Rebuild"):
+        VectorStore("kb_stale_test", OtherEmbedder(), persist_dir=tmp_path)
+    rebuilt = VectorStore("kb_stale_test", OtherEmbedder(), persist_dir=tmp_path, rebuild_on_mismatch=True)
+    assert rebuilt.count() == 0  # dropped, ready to be re-ingested

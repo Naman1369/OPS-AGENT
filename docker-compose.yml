@@ -1,0 +1,18 @@
+# Local single-node deployment: docker compose up --build
+services:
+  ops-agent:
+    build: .
+    image: ops-agent:1.0.0
+    ports:
+      - "8000:8000"
+    environment:
+      OPS_LLM_PROVIDER: ${OPS_LLM_PROVIDER:-mock}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      OPS_GOVERNANCE_MODE: ${OPS_GOVERNANCE_MODE:-auto}
+    volumes:
+      - ops-agent-data:/var/lib/ops-agent
+    restart: unless-stopped
+
+volumes:
+  ops-agent-data:

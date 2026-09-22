@@ -5,6 +5,6 @@ exactly one file and the version string recorded in the trace tells you which
 prompt produced any given run.
 """
 
-from . import governance, intake, resolution
+from . import governance, intake, mast, resolution, single_agent
 
-__all__ = ["intake", "resolution", "governance"]
+__all__ = ["intake", "resolution", "governance", "single_agent", "mast"]
